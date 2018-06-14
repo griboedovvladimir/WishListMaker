@@ -1,0 +1,11 @@
+<div style="text-align:center">
+  <h1>
+    {{ 'Welcome_to' | localize }}{{ title }}!
+  </h1>
+</div>
+<div class="container" [ngStyle]="style">
+<language-switcher></language-switcher>
+<div>{{currentDate | dateFormat }}</div>
+<div> {{12000000 | numberFormat}} </div>
+  <input type="text" [attr.dir]="dir">
+</div>

@@ -1,0 +1,7 @@
+<select class="language-switcher"
+        [(ngModel)]="currentLanguage"
+>
+  <option *ngFor="let language of languageList"
+          [value]="language.code">{{ language.title }}</option>
+</select>
+<span>{{ currentLanguage }}</span>
