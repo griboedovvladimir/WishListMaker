@@ -42,21 +42,20 @@ export class LocalizationService {
       isRtl: true
     }]
   ]);
-  strings = new Map<string, string>();
+  strings = new Map<any, any>();
 
   constructor () {
-    // fetch(`./assets/localization/${this.currentLanguage}.json`)
-    //   .then(respone => respone.json())
-    //   .then(localization => {
-    //     this.strings.clear();
-    //     for (let [key, value] of Object.entries(localization)) {
-    //       this.strings.set(key, value);
-    //     }
-    //   });
-
-    this.strings.clear();
+   this.strings.clear();
 }
   getLanguageMap(): Map<string, string> {
+    fetch(`./assets/localization/${this.currentLanguage}.json`)
+      .then(response => response.json())
+      .then(localization => {
+        this.strings.clear();
+        for (let [key, value] of Object.entries(localization)) {
+          this.strings.set(key, value);
+        }
+      });
     // for (let [key, value] of Object.entries(this.localization.get(this.currentLanguage))) {
     //   this.strings.set(key, value);
     //       }
