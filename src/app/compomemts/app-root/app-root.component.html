@@ -1,11 +1,12 @@
-<div style="text-align:center">
-  <h1>
-    {{ 'Welcome_to' | localize }}{{ title }}!
+
+<div >
+  <h1 class="container" [ngStyle]="style" style="justify-content: center">
+    <span> {{ 'Welcome_to' | localize }}</span><span>{{ title }}!</span>
   </h1>
 </div>
 <div class="container" [ngStyle]="style">
 <language-switcher></language-switcher>
 <div>{{currentDate | dateFormat }}</div>
 <div> {{12000000 | numberFormat}} </div>
-  <input type="text" [attr.dir]="dir">
+  <input type="text">
 </div>
