@@ -1,12 +1,3 @@
+<h1>Logo</h1>
+<router-outlet></router-outlet>
 
-<div >
-  <h1 class="container" [ngStyle]="style" style="justify-content: center">
-    <span> {{ 'Welcome_to' | localize }}</span><span>{{ title }}!</span>
-  </h1>
-</div>
-<div class="container" [ngStyle]="style">
-<language-switcher></language-switcher>
-<div>{{currentDate | dateFormat }}</div>
-<div> {{12000000 | numberFormat}} </div>
-  <input type="text">
-</div>

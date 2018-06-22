@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 
 @Injectable()
-export class AuthorizatioService {
-  authorizated: boolean;
+export class AuthorizationService {
+  authorizated = false;
   constructor() {
-    this.authorizated = true;
+  }
+  public getAuthorization() {
+    return this.authorizated;
   }
 
 }
