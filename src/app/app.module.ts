@@ -7,6 +7,7 @@ import * as services from './services';
 import * as pipes from './pipes';
 import {AuthorizationResolver} from './resolvers/authorization.resolver';
 import {AuthorizationGuard} from './guards/authorization.guard';
+import {HttpClientModule} from '@angular/common/http';
 
 
 
@@ -20,7 +21,8 @@ import {AuthorizationGuard} from './guards/authorization.guard';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRouterModule
+    AppRouterModule,
+    HttpClientModule
   ],
   providers: [
    Object.values(services),

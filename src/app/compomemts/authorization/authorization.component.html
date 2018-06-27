@@ -1,5 +1,31 @@
-<div *ngIf="value">
-<h1>Authorization page</h1>
+<style>
+  input.ng-dirty.ng-invalid {border-color: lightcoral}
+  input.ng-dirty.ng-valid {border-color: lightgreen}
+</style>
+<div>
+<h1>Log in</h1>
+  <form>
+    <div id="formWrapper">
+      <label for="email">{{'Please, insert your Email'|localize: trigger | async }} </label>
+      <input id="email" type="email"  name="email" [(ngModel)]="authorize.email"
+             required
+             minlength="6"
+             pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"/>
+
+      <label for="password">Please, insert your password</label>
+      <input id="password" type="password" name="pass" [(ngModel)]="authorize.password"
+             required
+             minlength="6"
+             pattern="^[A-zА-я1-9 ]+$"/>
+
+      <label for="rememberme">Remember me</label>
+        <input class="checkbox" id="rememberme" type="checkbox">
+
+
+      <button id='signin' type="button">SIGN IN</button>
+    </div>
+    <p>If you are unable to authorize, you may need to <a routerLink="/registration" >register</a></p>
+  </form>
 <a routerLink="/main" (click)="onClick()"><button>Start</button></a>
 </div>
 

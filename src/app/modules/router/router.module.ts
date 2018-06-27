@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'login', component: AuthorizationComponent
   },
   {
-    path: 'register', component: RegistrationComponent
+    path: 'registration', component: RegistrationComponent
   },
   {
     path: '**', redirectTo: '', pathMatch: 'full'

@@ -1,25 +1,15 @@
 import {Injectable} from '@angular/core';
 import {LanguageDescription} from '../interfaces/localization-interfaces';
+import {Observable, of} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {IDBService} from './IDB.service';
 
 
 @Injectable()
 export class LocalizationService {
   changeCallbacks = new Set<(code: string) => void>();
   currentLanguage = 'ru-RU';
-  private localization = new Map<string, any>([
-    ['ru-RU', {
-      'Welcome_to': 'Добро пожаловать в '
-    }],
-    ['en-US', {
-      'Welcome_to': 'Welcome to '
-    }],
-    ['en-GB', {
-      'Welcome_to': 'Welcome to '
-    }],
-    ['ar-EG', {
-      'Welcome_to': '\u{645}\u{631}\u{62d}\u{628}\u{627}\u{20}\u{628}\u{643}\u{645} '
-    }],
-  ]);
   private languages = new Map<string, LanguageDescription>([
     ['ru-RU', {
       title: 'Русский',
@@ -44,23 +34,20 @@ export class LocalizationService {
   ]);
   strings = new Map<any, any>();
 
-  constructor () {
+  constructor (private http: HttpClient, private IDB: IDBService) {
    this.strings.clear();
 }
-  getLanguageMap(): Map<string, string> {
-    fetch(`./assets/localization/${this.currentLanguage}.json`)
-      .then(response => response.json())
-      .then(localization => {
-        this.strings.clear();
-        for (let [key, value] of Object.entries(localization)) {
-          this.strings.set(key, value);
-        }
-      });
-    // for (let [key, value] of Object.entries(this.localization.get(this.currentLanguage))) {
-    //   this.strings.set(key, value);
-    //       }
-    return this.strings;
-}
+  getLanguageMap() {
+ return new Promise((resolve, reject) => {
+   this.IDB.transactionGet('localization', this.currentLanguage).then(response => {
+     this.strings.clear();
+     for (let [key, value] of Object.entries(response)) {
+       this.strings.set(key, value as string);
+     }
+     resolve(this.strings);
+   });
+ });
+  }
   getLanguageList(): Array<LanguageDescription> {
     return [...this.languages.values()];
   }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthorizationService} from '../../services/authorization.service';
+import {LocalizationService} from '../../services/localization.service';
 
 @Component({
   selector: 'authorization-comp',
@@ -7,8 +8,16 @@ import {AuthorizationService} from '../../services/authorization.service';
   styleUrls: ['./authorization.component.scss']
 })
 export class AuthorizationComponent implements OnInit {
-value = true;
-  constructor(private Autorization: AuthorizationService) { }
+authorize = {
+  email: '',
+  password: ''
+};
+  trigger = 2;
+  constructor(private Autorization: AuthorizationService, localizationService: LocalizationService) {
+    localizationService.onChange(code => {
+      this.trigger++;
+    });
+  }
 
   ngOnInit() {
   }
