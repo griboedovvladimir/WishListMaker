@@ -13,6 +13,13 @@ const findDocuments = (db, callback) => {
     callback(docs);
   })
 };
+const findUser = (db, callback) => {
+  const collection = db.collection('users');
+  collection.find({}). toArray((err, docs)=>{
+    assert.equal(err,null);
+    callback(docs);
+  })
+};
 
 
 const app = express();
@@ -53,6 +60,33 @@ app.post('/localization',(req,res)=>{
       let result=JSON.stringify(data);
       return res.end(result);
 
+    });
+    client.close();
+  })
+});
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
+
+app.post('/authorization',(req,res)=>{
+  MongoClient.connect(url, (err, client)=>{
+    assert.equal(null,err);
+    console.log('Connected seccessful to server');
+    const db = client.db(dbName);
+
+
+    findUser(db,(data)=>{
+      let token='';
+      for (let i of data){
+        if (i.email === req.body.email && i.password === req.body.password){
+          token = i.token;
+        }
+      }
+      let result=JSON.stringify(token);
+      return res.end(result);
     });
     client.close();
   })

@@ -31,11 +31,11 @@ export class AppRootComponent {
     //   this.IDB.transactionAdd('localization', 1, i);
     // }
     // this.IDB.transactionGet('localization', 'ru-RU').then(res => console.log(res));
-      this.IDB.requestToDB().subscribe(res => {
-        for (let i of res) {
-          this.IDB.transactionAdd('localization', 1, i);
-        }
-      });
+    //   this.IDB.requestToDB().subscribe(res => {
+    //     for (let i of res) {
+    //       this.IDB.transactionAdd('localization', 1, i);
+    //     }
+    //   });
     localizationService.onChange(code => {
       if (localizationService.getCurrentLocalization().isRtl) {
         this.style = {flexDirection: 'row-reverse'};
