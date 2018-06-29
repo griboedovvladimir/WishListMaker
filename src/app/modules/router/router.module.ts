@@ -5,6 +5,8 @@ import {AuthorizationComponent} from '../../compomemts/authorization/authorizati
 import {RegistrationComponent} from '../../compomemts/registration/registration.component';
 import {AuthorizationResolver} from '../../resolvers/authorization.resolver';
 import {AuthorizationGuard} from '../../guards/authorization.guard';
+import {LoginGuard} from '../../guards/login.guard';
+import {RegistrationGuard} from '../../guards/registration.guard';
 
 
 const routes: Routes = [
@@ -12,10 +14,10 @@ const routes: Routes = [
     path: '', component: MainPageComponent, canActivate: [AuthorizationGuard]
   },
   {
-    path: 'login', component: AuthorizationComponent
+    path: 'login', component: AuthorizationComponent, canActivate: [LoginGuard]
   },
   {
-    path: 'registration', component: RegistrationComponent
+    path: 'registration', component: RegistrationComponent, canActivate: [RegistrationGuard]
   },
   {
     path: '**', redirectTo: '', pathMatch: 'full'

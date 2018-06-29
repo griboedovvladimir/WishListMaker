@@ -8,6 +8,8 @@ import * as pipes from './pipes';
 import {AuthorizationResolver} from './resolvers/authorization.resolver';
 import {AuthorizationGuard} from './guards/authorization.guard';
 import {HttpClientModule} from '@angular/common/http';
+import {LoginGuard} from './guards/login.guard';
+import {RegistrationGuard} from './guards/registration.guard';
 
 
 
@@ -27,7 +29,9 @@ import {HttpClientModule} from '@angular/common/http';
   providers: [
    Object.values(services),
     AuthorizationResolver,
-    AuthorizationGuard
+    AuthorizationGuard,
+    LoginGuard,
+    RegistrationGuard
   ],
   bootstrap: [components.AppRootComponent]
 })
