@@ -42,6 +42,17 @@ export class IDBService {
         };
       });
     }
+    static GetAll(db, storeName) {
+      return new Promise((res, rej) => {
+        let req = db.transaction([storeName]).objectStore(storeName).getAll();
+        req.onsuccess = () => {
+          res(req.result);
+        };
+        req.onerror = () => {
+          rej();
+        };
+      });
+    }
     requestToDB(): Observable<any> {
         return this.http.post('http://localhost:8080/localization', {body: 'ok'})
           .pipe(
@@ -49,6 +60,13 @@ export class IDBService {
               return string;
             })
           );
+      }
+      trensactionGetAll(storeName) {
+        return new Promise((resolve, reject) => {
+          IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
+            IDBService.GetAll(dataBase, storeName);
+          });
+        });
       }
   transactionAdd(storeName, version, data) {
     IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {

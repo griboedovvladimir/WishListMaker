@@ -37,6 +37,9 @@ export class LocalizationService {
   constructor (private http: HttpClient, private IDB: IDBService) {
    this.strings.clear();
 }
+setlocalizeMap(localize){
+
+}
   getLanguageMap() {
  return new Promise((resolve, reject) => {
    this.IDB.transactionGet('localization', this.currentLanguage).then(response => {
