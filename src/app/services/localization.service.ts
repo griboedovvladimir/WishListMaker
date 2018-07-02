@@ -8,6 +8,7 @@ import {IDBService} from './IDB.service';
 
 @Injectable()
 export class LocalizationService {
+  static LanguageMap = new Map <string, any>();
   changeCallbacks = new Set<(code: string) => void>();
   currentLanguage = 'ru-RU';
   private languages = new Map<string, LanguageDescription>([
@@ -37,19 +38,17 @@ export class LocalizationService {
   constructor (private http: HttpClient, private IDB: IDBService) {
    this.strings.clear();
 }
-setlocalizeMap(localize){
-
+static setLanguageMap(base) {
+    for (let local of base) {
+      LocalizationService.LanguageMap.set( local.name, local);
+    }
 }
   getLanguageMap() {
- return new Promise((resolve, reject) => {
-   this.IDB.transactionGet('localization', this.currentLanguage).then(response => {
      this.strings.clear();
-     for (let [key, value] of Object.entries(response)) {
+     for (let [key, value] of Object.entries(LocalizationService.LanguageMap.get(this.currentLanguage))) {
        this.strings.set(key, value as string);
      }
-     resolve(this.strings);
-   });
- });
+     return this.strings;
   }
   getLanguageList(): Array<LanguageDescription> {
     return [...this.languages.values()];

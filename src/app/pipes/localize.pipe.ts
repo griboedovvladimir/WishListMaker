@@ -4,7 +4,7 @@ import {LocalizationService} from '../services/localization.service';
 
 @Pipe({
   name: 'localize',
-  pure: true,
+  pure: false,
 })
 export class LocalizePipe implements PipeTransform {
   map = this.localizationService.getLanguageMap();
@@ -14,10 +14,8 @@ export class LocalizePipe implements PipeTransform {
       this.map = this.localizationService.getLanguageMap();
     });
   }
-  transform(string: string): any {
-    return  this.map.then(map => {
-     let stringMap = map as Map<string, string>;
-      return Promise.resolve(stringMap.get(string));
-      });
+  transform(string) {
+     let stringMap = this.map as Map<string, string>;
+      return stringMap.get(string);
   }
 }
