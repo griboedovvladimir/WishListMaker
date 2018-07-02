@@ -70,5 +70,4 @@ static setLanguageMap(base) {
   onChange(callback: (code: string) => void) {
     this.changeCallbacks.add(callback);
   }
-
 }

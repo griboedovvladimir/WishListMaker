@@ -18,53 +18,40 @@ const db = window.indexedDB;
 const baseName = 'WishListMaker';
 const storeName = 'localization';
 let doFetch: any;
-IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
-      IDBService.Get(dataBase, storeName,  'en-US').then(res => {
-        if (!res) {
-          let fetchTask = fetch('http://localhost:8080/localization', {
-            method: 'POST',
-            mode: 'cors'
-          }).then(response => {
-            response.json().then(res => {
-                for (let i of res) {
-                  IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
-                    IDBService.Add(dataBase, storeName,  i);
-                  });
-                }
-              }
-            );
-            const makeLocalizationTask =  IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
-              return IDBService.GetAll(dataBase, storeName); } ).then(base => LocalizationService.setLanguageMap(base));
-            preparation(fetchTask, makeLocalizationTask).then(() => platformBrowserDynamic().bootstrapModule(AppModule)
-              .catch(err => console.log(err)));
+
+fetch('http://localhost:8080/localization', {
+  method: 'POST',
+  mode: 'cors'
+}).then(response => {
+    response.json().then(res => {
+        for (let i of res) {
+          IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
+            IDBService.Add(dataBase, storeName,  i);
           });
-
-        } else {
-          const makeLocalizationTask =  IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
-            return IDBService.GetAll(dataBase, storeName); } ).then(base => LocalizationService.setLanguageMap(base));
-          makeLocalizationTask.then(() => platformBrowserDynamic().bootstrapModule(AppModule)
-            .catch(err => console.log(err)));
         }
-      }); }
-);
-
-// let fetchTask = fetch('http://localhost:8080/localization', {
-//   method: 'POST',
-//   mode: 'cors'
-// }).then(response => {
-//   response.json().then(res => {
-//       for (let i of res) {
-//         IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
-//           IDBService.Add(dataBase, storeName,  i);
-//         });
-//       }
-//     }
-//   );
-//   const makeLocalizationTask =  IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
-//     return IDBService.GetAll(dataBase, storeName); } ).then();
-//   preparation(fetchTask, makeLocalizationTask).then(() => platformBrowserDynamic().bootstrapModule(AppModule)
-//     .catch(err => console.log(err)));
-// });
+      }
+    ).then(() => {
+      IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
+        return IDBService.GetAll(dataBase, storeName);
+      }).then(base => LocalizationService.setLanguageMap(base))
+        .then(() => platformBrowserDynamic().bootstrapModule(AppModule)
+          .catch(err => console.log(err)));
+    });
+  }).catch(() => {
+  IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
+      IDBService.Get(dataBase, storeName,  'en-US').then(res => {
+        if (res) {
+          IDBService.connectDB(db, baseName, storeName, 1).then(dataBase => {
+            return IDBService.GetAll(dataBase, storeName);
+          }).then(base => LocalizationService.setLanguageMap(base))
+            .then(() => platformBrowserDynamic().bootstrapModule(AppModule)
+              .catch(err => console.log(err)));
+        } else {
+          document.body.innerText = 'Application can\'t start, maybe there are problems with network connection';
+        }
+        });
+  });
+});
 
 
 
