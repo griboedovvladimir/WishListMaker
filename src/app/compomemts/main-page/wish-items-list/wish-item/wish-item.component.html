@@ -1,4 +1,9 @@
-<div>
+<div #item>
+  <div (click)="Remove(item)">X</div>
   <img src="/assets/img/appImg/defoultImg.png">
+  <p>{{itemData.name}}</p>
+  <p>{{itemData.link}}</p>
+  <p>{{itemData.price}}</p>
+  <p>{{itemData.description}}</p>
 </div>
 

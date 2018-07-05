@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import {WishItemInterface} from '../../../../interfaces/wish-item-interface';
 
 @Component({
   selector: 'app-wish-item',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./wish-item.component.scss']
 })
 export class WishItemComponent implements OnInit {
-
-  constructor() { }
+@Input() itemData: WishItemInterface;
+  constructor() {
+  }
 
   ngOnInit() {
   }
-
+Remove(item) {
+    item.remove();
+}
 }

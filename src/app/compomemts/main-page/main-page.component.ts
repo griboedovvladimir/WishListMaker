@@ -25,7 +25,10 @@ url = '/assets/img/appImg/hamburger.svg';
   }
   ngOnInit() {
     if (sessionStorage.getItem('WishListMaker')) {
-     sessionStorage.removeItem('WishListMaker');
+      sessionStorage.removeItem('WishListMaker');
+    }
+    if (document.getElementById('preloader')) {
+      document.getElementById('preloader').remove();
     }
   }
   burgerClick() {

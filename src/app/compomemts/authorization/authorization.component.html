@@ -3,8 +3,8 @@
   input.ng-dirty.ng-valid {border-color: lightgreen}
 </style>
 <div>
-<h1>Log in</h1>
-  <form #form="ngForm" (ngSubmit)="onSubmit(form,remember)">
+<h1 #el>Log in</h1>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form,remember,el)">
     <div style="color:red"
          *ngIf = "formSubmitted && form.invalid">
       There are problems with form

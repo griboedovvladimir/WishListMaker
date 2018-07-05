@@ -20,6 +20,13 @@ const findUser = (db, callback) => {
     callback(docs);
   })
 };
+const findWishes = (db, callback) => {
+  const collection = db.collection('wishes');
+  collection.find({}). toArray((err, docs)=>{
+    assert.equal(err,null);
+    callback(docs);
+  })
+};
 function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -111,6 +118,26 @@ app.post('/authorization',(req,res)=>{
     });
     client.close();
   })
+});
+
+app.post('/getwishes',(req,res)=>{
+ console.log(req.body);
+  MongoClient.connect(url, (err, client)=>{
+    assert.equal(null,err);
+    console.log('Connected seccessful to server');
+    const db = client.db(dbName);
+    findWishes(db,(data)=>{
+      let arr=[];
+      for (let i of data){
+        if (i.userToken === req.body.token){
+          arr.push(i);
+        }
+      }
+      let result=JSON.stringify(arr);
+      return res.end(result);
+    });
+    client.close();
+  });
 });
 
 app.listen(8080,()=>{
