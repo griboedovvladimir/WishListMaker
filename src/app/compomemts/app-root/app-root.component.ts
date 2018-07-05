@@ -27,15 +27,10 @@ export class AppRootComponent {
   ];
 
   constructor(localizationService: LocalizationService, private IDB: IDBService) {
-    // for (let i of this.localization) {
-    //   this.IDB.transactionAdd('localization', 1, i);
-    // }
-    // this.IDB.transactionGet('localization', 'ru-RU').then(res => console.log(res));
-    //   this.IDB.requestToDB().subscribe(res => {
-    //     for (let i of res) {
-    //       this.IDB.transactionAdd('localization', 1, i);
-    //     }
-    //   });
+    document.body.style.cssText = '' +
+      'background-image: ' +
+      'linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);' +
+      '!important;background-size: cover;height:100%;';
     localizationService.onChange(code => {
       if (localizationService.getCurrentLocalization().isRtl) {
         this.style = {flexDirection: 'row-reverse'};

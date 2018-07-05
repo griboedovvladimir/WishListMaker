@@ -15,13 +15,12 @@ authorize = {
   password: ''
 };
 remember = false;
-  trigger = 2;
   registrationErr = '';
   formSubmitted = false;
   constructor(private Authorization: AuthorizationService, localizationService: LocalizationService,  private router: Router) {
     localizationService.onChange(code => {
-      this.trigger++;
     });
+    this.remember = false;
   }
   getValidationMessages(state: any, thingName?: string) {
     let thing: string = state.path || thingName;
@@ -54,13 +53,12 @@ remember = false;
   ngOnInit() {
   }
 
-onSubmit(form: NgForm) {
-    this.formSubmitted = true;
+onSubmit(form: NgForm, remember) {
     if (form.valid) {
       this.Authorization.checkAuthorization(this.authorize.email, this.authorize.password).then(res => {
         if (res) {
-          if (!this.remember) {
-            localStorage.setItem('WishListMaker', res);
+          if (remember) {
+           localStorage.setItem('WishListMaker', res);
           } else {
             sessionStorage.setItem('WishListMaker', res);
           }

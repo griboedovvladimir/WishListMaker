@@ -10,6 +10,8 @@ import {AuthorizationGuard} from './guards/authorization.guard';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginGuard} from './guards/login.guard';
 import {RegistrationGuard} from './guards/registration.guard';
+import { WishItemComponent } from './compomemts/main-page/wish-items-list/wish-item/wish-item.component';
+
 
 
 
@@ -18,7 +20,7 @@ import {RegistrationGuard} from './guards/registration.guard';
   declarations: [
     ...Object.values(components),
    ...Object.values(pipes),
-
+   WishItemComponent,
   ],
   imports: [
     BrowserModule,

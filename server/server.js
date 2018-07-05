@@ -20,7 +20,14 @@ const findUser = (db, callback) => {
     callback(docs);
   })
 };
-
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
 
 const app = express();
 app.use(cors());
@@ -57,7 +64,7 @@ app.post('/registration',(req,res)=> {
     console.log('Connected seccessful to server');
     const db = client.db(dbName);
     let user = req.body;
-    user.token = Date.now().toString() + user.name;
+    user.token = guid();
     MongoClient.connect(url, (err, client)=>{
       assert.equal(null,err);
       console.log('Connected seccessful to server');

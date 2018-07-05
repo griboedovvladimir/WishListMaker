@@ -4,7 +4,7 @@
 </style>
 <div>
 <h1>Log in</h1>
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <form #form="ngForm" (ngSubmit)="onSubmit(form,remember)">
     <div style="color:red"
          *ngIf = "formSubmitted && form.invalid">
       There are problems with form

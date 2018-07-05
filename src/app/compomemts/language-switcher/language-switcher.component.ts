@@ -9,13 +9,10 @@ import {LocalizationService} from '../../services/localization.service';
 })
 export class LanguageSwitcherComponent {
   languageList: Array<LanguageDescription>;
-  private localizationService: LocalizationService;
 
-  constructor(localizationService: LocalizationService) {
-    this.localizationService = localizationService;
+  constructor(private localizationService: LocalizationService) {
     this.languageList = localizationService.getLanguageList();
   }
-
   get currentLanguage() {
     return this.localizationService.currentLanguage;
   }
@@ -23,4 +20,5 @@ export class LanguageSwitcherComponent {
   set currentLanguage(code) {
     this.localizationService.setCurrentLocalization(code);
   }
+
 }

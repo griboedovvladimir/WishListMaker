@@ -6,5 +6,9 @@
 <div class="container" [ngStyle]="style">
   <div>{{currentDate | dateFormat }}</div>
   <div> {{12000000 | numberFormat}} </div>
-  <input type="text">
+</div>
+<div class="row"  [ngStyle]="style" >
+  <img [attr.src]= "url" (click)="burgerClick()">
+  <div *ngIf="menuActive"><app-main-left-menu></app-main-left-menu></div>
+  <app-wish-items-list></app-wish-items-list>
 </div>

@@ -8,11 +8,12 @@ import { LocalizePipe } from '../../pipes/localize.pipe';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent  {
+export class MainPageComponent  implements OnInit {
   currentDate = new Date();
   style: any = {flexDirection: 'row'};
   title = 'WishListMaker';
-
+  menuActive = false;
+url = '/assets/img/appImg/hamburger.svg';
   constructor(localizationService: LocalizationService) {
     localizationService.onChange(code => {
       if (localizationService.getCurrentLocalization().isRtl) {
@@ -21,6 +22,20 @@ export class MainPageComponent  {
         this.style = {flexDirection: 'row'};
       }
     });
+  }
+  ngOnInit() {
+    if (sessionStorage.getItem('WishListMaker')) {
+     sessionStorage.removeItem('WishListMaker');
+    }
+  }
+  burgerClick() {
+    if (this.menuActive !== true) {
+      this.menuActive = true;
+      this.url = '/assets/img/appImg/cross.svg';
+    } else {
+      this.url = '/assets/img/appImg/hamburger.svg';
+      this.menuActive = false;
+    }
   }
 }
 

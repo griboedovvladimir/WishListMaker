@@ -33,6 +33,7 @@
   }
 
   ////////////////////////////////////////////////////////////////////////////////
+
   .container {
 text-align: center;
   }
@@ -41,15 +42,28 @@ text-align: center;
     border-right:none;
     border-left:none;
     outline: none;
+    background: transparent;
+    border-color: black;
   }
   img{
     max-width: 100%;
     height:auto;
   }
+
 }
+
 .container{
   justify-content: center;
 }
 img {
+  width:60%;
 max-width: 300px;
+}
+.wrapper{
+  max-width: 900px;
+  margin: auto;
+  background-color: rgba(255,255,255,0.5);
+  margin-top: -10px;
+  height: 95vh;
+  padding: 10px 10px;
 }
