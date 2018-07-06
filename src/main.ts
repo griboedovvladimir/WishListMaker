@@ -22,7 +22,6 @@ el.textContent = 'There is no Internet connection, all changes will not be saved
 el.style.cssText = 'max-width: 200px; width:20%; font-family:sans-serif; ' +
                     'font-size:12px; opacity:0.5; border: 2px solid black; border-radius:3px;' +
                     ' padding: 2px; position: absolute; top:2px; right:10px;';
-
 document.body.style.cssText = '' +
   'background-image: ' +
   'linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);' +

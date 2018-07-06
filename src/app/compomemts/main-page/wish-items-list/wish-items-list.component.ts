@@ -33,5 +33,11 @@ export class WishItemsListComponent implements OnInit {
       })
     );
   }
-
+  Removing(id: string) {
+this.items.forEach((i, item) => {
+if (i._id === id) {
+  this.items.splice(item, 1);
+}
+});
+  }
 }

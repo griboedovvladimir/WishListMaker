@@ -1,3 +1,3 @@
 <div *ngFor="let i of items" >
-  <app-wish-item [itemData]="i"></app-wish-item>
+  <app-wish-item [itemData]="i" (Removing)="Removing($event)" ></app-wish-item>
 </div>

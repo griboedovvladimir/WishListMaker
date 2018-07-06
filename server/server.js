@@ -121,7 +121,6 @@ app.post('/authorization',(req,res)=>{
 });
 
 app.post('/getwishes',(req,res)=>{
- console.log(req.body);
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
     console.log('Connected seccessful to server');

@@ -5,4 +5,5 @@ export interface WishItemInterface {
   imagePath: string;
   price: number;
   description: string;
+  _id: string;
 }

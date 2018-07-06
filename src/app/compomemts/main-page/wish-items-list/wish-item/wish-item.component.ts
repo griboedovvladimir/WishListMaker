@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {WishItemInterface} from '../../../../interfaces/wish-item-interface';
 
 @Component({
@@ -8,12 +8,14 @@ import {WishItemInterface} from '../../../../interfaces/wish-item-interface';
 })
 export class WishItemComponent implements OnInit {
 @Input() itemData: WishItemInterface;
+@Output() Removing = new EventEmitter<string>();
+
   constructor() {
   }
 
   ngOnInit() {
   }
-Remove(item) {
-    item.remove();
+Remove(id) {
+this.Removing.emit(id);
 }
 }
