@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div class="window">
+    <div class="remove" ><img (click)="closeAdd()" src="/assets/img/appImg/cross.svg"></div>
+  <form #form (submit)="onSubmit(form)">
+    <label for="addName">Name</label>
+    <input type="text" name="name" id="addName">
+    <label for="addDescript">addDescription</label>
+    <textarea rows="4" name="addDescript" id="addDescript"></textarea>
+      <label for="addLink">link</label>
+    <input type="text" name="addLink" id="addLink">
+    Price <input type="number" name="addPrice" id="addPrice"> BLR
+    <label for="file">Upload image</label>
+    <input type="file" name="file" id="file"  ng2FileSelect [uploader]="uploader" >
+    or write link to img <input type="text" name="addlinkImg" id="addlinkImg">
+    <button type="submit">Add</button>
+    </form>
+  </div>
+</div>

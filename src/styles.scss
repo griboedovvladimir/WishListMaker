@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "Main";
+  src: url("assets/fonts/main.ttf");
+  font-style: normal;
+  font-weight: normal;
+}
+body {
+background-image: linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);
+  background-size: cover;
+  height:100%;
+}
+

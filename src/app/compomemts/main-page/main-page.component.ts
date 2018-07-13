@@ -13,6 +13,8 @@ export class MainPageComponent  implements OnInit {
   style: any = {flexDirection: 'row'};
   title = 'WishListMaker';
   menuActive = false;
+  addActive = false;
+  wishesActive = true;
 url = '/assets/img/appImg/hamburger.svg';
   constructor(localizationService: LocalizationService) {
     localizationService.onChange(code => {
@@ -39,6 +41,21 @@ url = '/assets/img/appImg/hamburger.svg';
       this.url = '/assets/img/appImg/hamburger.svg';
       this.menuActive = false;
     }
+  }
+  showAddForm() {
+    this.addActive = true;
+    this.menuActive = false;
+    this.url = '/assets/img/appImg/hamburger.svg';
+  }
+  closeAddForm() {
+    this.addActive = false;
+  }
+  removeWishLists() {
+    this.wishesActive = true;
+  }
+  goShowWishLists() {
+    this.wishesActive = false;
+    this.burgerClick();
   }
 }
 

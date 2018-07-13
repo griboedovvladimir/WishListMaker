@@ -10,7 +10,9 @@ import {AuthorizationGuard} from './guards/authorization.guard';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginGuard} from './guards/login.guard';
 import {RegistrationGuard} from './guards/registration.guard';
-import { WishItemComponent } from './compomemts/main-page/wish-items-list/wish-item/wish-item.component';
+import { FileSelectDirective } from 'ng2-file-upload';
+import { WishListListComponent } from './compomemts/main-page/wish-list-list/wish-list-list.component';
+import { AddWishlistComponent } from './compomemts/main-page/wish-list-list/add-wishlist/add-wishlist.component';
 
 
 
@@ -20,7 +22,9 @@ import { WishItemComponent } from './compomemts/main-page/wish-items-list/wish-i
   declarations: [
     ...Object.values(components),
    ...Object.values(pipes),
-   WishItemComponent,
+    FileSelectDirective,
+    WishListListComponent,
+    AddWishlistComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <div class="back" (click)="goBack()">Back to wishes</div>
+  <div class="item">
+  <div class="content">
+    <p>Name: bla-bla-bla</p>
+    <p>Members: Vladimir(likecoffee@yandex.ru), Masha(zaitz@tut.by)</p>
+    <p>url: 12.07.2018</p>
+  </div>
+  <div class="remove">
+  <img src="/assets/img/appImg/cross.svg">
+  </div>
+  </div>
+<button (click)="openAddWishlist()">Make wishlist</button>
+</div>
+<div *ngIf="addWishlistActive"><app-add-wishlist (closeAddWishlist)="closeAddWishlist()"></app-add-wishlist></div>

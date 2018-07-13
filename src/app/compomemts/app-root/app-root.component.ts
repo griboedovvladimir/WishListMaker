@@ -27,10 +27,10 @@ export class AppRootComponent {
   ];
 
   constructor(localizationService: LocalizationService, private IDB: IDBService) {
-    document.body.style.cssText = '' +
-      'background-image: ' +
-      'linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);' +
-      '!important;background-size: cover;height:100%;';
+    // document.body.style.cssText = '' +
+    //   'background-image: ' +
+    //   'linear-gradient(to right, #e4afcb 0%, #b8cbb8 0%, #b8cbb8 0%, #e2c58b 30%, #c2ce9c 64%, #7edbdc 100%);' +
+    //   '!important;background-size: cover;height:100%;';
     localizationService.onChange(code => {
       if (localizationService.getCurrentLocalization().isRtl) {
         this.style = {flexDirection: 'row-reverse'};

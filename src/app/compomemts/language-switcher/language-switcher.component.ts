@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {LanguageDescription} from '../../interfaces/localization-interfaces';
+import {LanguageDescription} from '../../interfaces/localization.interface';
 import {LocalizationService} from '../../services/localization.service';
 
 @Component({

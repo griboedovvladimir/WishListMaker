@@ -1,9 +1,8 @@
-<div #item>
+
   <div class="remove" (click)="Remove(itemData._id)"><img src="/assets/img/appImg/cross.svg"></div>
-  <img src="/assets/img/appImg/defoultImg.png">
+  <img [attr.src]="itemData.imagePath">
   <p>{{itemData.name}}</p>
   <p>{{itemData.link}}</p>
   <p>{{itemData.price}}</p>
   <p>{{itemData.description}}</p>
-</div>
 

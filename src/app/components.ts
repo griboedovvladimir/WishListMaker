@@ -5,3 +5,5 @@ export * from  './compomemts/main-page/main-page.component';
 export * from './compomemts/registration/registration.component';
 export * from './compomemts/main-page/main-left-menu/main-left-menu.component';
 export *  from './compomemts/main-page/wish-items-list/wish-items-list.component';
+export * from './compomemts/main-page/wish-items-list/wish-item/wish-item.component';
+export * from './compomemts/main-page/add-wishes/add-wishes.component';

@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div class="window">
+    <div class="remove" ><img (click)="closeWindow()" src="/assets/img/appImg/cross.svg"></div>
+    <form #form (submit)="onSubmit(form)">
+      <label for="wishListName">Write name of your new wishlist</label>
+      <input type="text" name="wishListName" id="wishListName">
+      <p>Choice wishes from your wishes</p>
+      <div *ngFor="let i of wishes">
+      <label>{{i.name}}
+      <input type="checkbox" [attr.id]="i._id" [attr.name]="i._id">
+      </label>
+      </div>
+      <label for="members">Add members</label>
+      <input id="members" type="text" name="members">
+      <button type="submit">Create wishlist</button>
+    </form>
+  </div>
+</div>

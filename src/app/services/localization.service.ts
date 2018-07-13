@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {LanguageDescription} from '../interfaces/localization-interfaces';
+import {LanguageDescription} from '../interfaces/localization.interface';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
