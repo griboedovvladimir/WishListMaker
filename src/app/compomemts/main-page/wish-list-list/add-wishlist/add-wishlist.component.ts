@@ -12,6 +12,7 @@ import {guid} from '../../../../helpers/guid.helper';
 export class AddWishlistComponent implements OnInit {
   wishes: Array<WishItemInterface>;
 @Output() closeAddWishlist = new EventEmitter();
+@Output() ReRenderWishList = new EventEmitter();
 closeWindow() {
   this.closeAddWishlist.emit();
 }
@@ -51,6 +52,7 @@ closeWindow() {
   };
     this.api.addWishList(wishList);
     this.closeWindow();
+    this.ReRenderWishList.emit();
   }
   ngOnInit() {
   }

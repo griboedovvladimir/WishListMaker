@@ -1,0 +1,6 @@
+<div *ngIf="checkedRights">
+<app-wish-list-page-list [items]="list" [userEmail]="userEmail"></app-wish-list-page-list>
+</div>
+<div *ngIf="faultRights">
+  You don't have rights
+</div>

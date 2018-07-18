@@ -13,6 +13,10 @@ import {RegistrationGuard} from './guards/registration.guard';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { WishListListComponent } from './compomemts/main-page/wish-list-list/wish-list-list.component';
 import { AddWishlistComponent } from './compomemts/main-page/wish-list-list/add-wishlist/add-wishlist.component';
+import { WishListPageComponent } from './compomemts/wish-list-page/wish-list-page.component';
+import { ErrorPageComponent } from './compomemts/error-page/error-page.component';
+import { WishListPageListComponent } from './compomemts/wish-list-page/wish-list-page-list/wish-list-page-list.component';
+import { WishListPageItemComponent } from './compomemts/wish-list-page/wish-list-page-list/wish-list-page-item/wish-list-page-item.component';
 
 
 
@@ -24,7 +28,11 @@ import { AddWishlistComponent } from './compomemts/main-page/wish-list-list/add-
    ...Object.values(pipes),
     FileSelectDirective,
     WishListListComponent,
-    AddWishlistComponent
+    AddWishlistComponent,
+    WishListPageComponent,
+    ErrorPageComponent,
+    WishListPageListComponent,
+    WishListPageItemComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +45,7 @@ import { AddWishlistComponent } from './compomemts/main-page/wish-list-list/add-
     AuthorizationResolver,
     AuthorizationGuard,
     LoginGuard,
-    RegistrationGuard
+    RegistrationGuard,
   ],
   bootstrap: [components.AppRootComponent]
 })

@@ -1,7 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import {FileUploader, FileSelectDirective} from 'ng2-file-upload/ng2-file-upload';
 import {APIService} from '../../../services/API.service';
 import {Router} from '@angular/router';
+
 const URL = 'http://localhost:8080/upload';
 
 
@@ -15,14 +16,20 @@ export class AddWishesComponent implements OnInit {
 
   public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'file'});
   @Output() closeAddForm = new EventEmitter();
+
   closeAdd() {
     this.closeAddForm.emit();
   }
-  constructor( private api: APIService, private router: Router) {}
+
+  constructor(private api: APIService, private router: Router) {
+  }
 
   ngOnInit() {
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    };
   }
+
   onSubmit(form) {
     let dataWhish = {
       userToken: `${localStorage.getItem('WishListMaker')
@@ -30,7 +37,7 @@ export class AddWishesComponent implements OnInit {
         : sessionStorage.getItem('WishListMaker')}`,
       name: form.addName.value,
       link: form.addLink.value,
-      imagePath: '/assets/img/appImg/defoultImg.png',
+      imagePath: form.addlinkImg.value || '/assets/img/appImg/defoultImg.png',
       price: form.addPrice.value,
       description: form.addDescript.value,
       _id: ''

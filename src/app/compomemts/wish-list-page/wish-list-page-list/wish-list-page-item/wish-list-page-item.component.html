@@ -1,0 +1,20 @@
+<div class="item">
+  <div [ngClass]="formActive">
+    <label for="iWantToBuy">Check if you want to buy</label>
+    <input #wanttobuy type="checkbox" name="iWantToBuy" id="iWantToBuy" [checked]="checkbox" >
+    <label for="notes">You can add or change notes</label>
+  <input #notes type="text" name="notes" id="notes" [value]="itemData.notes">
+  </div>
+  <img [attr.src]="itemData.imagePath">
+  <p>{{itemData.name}}</p>
+  <p>{{itemData.link}}</p>
+  <p>{{itemData.price}}</p>
+  <p>{{itemData.description}}</p>
+  <hr>
+  <p *ngIf="itemData.members[0]">It will be buy:</p>
+  <p *ngFor="let member of itemData.members">
+    {{member}}
+  </p>
+  <p>{{itemData.notes}}</p>
+  <button type="button" (click)="change(changeButton, wanttobuy, notes)">{{changeButton}}</button>
+</div>

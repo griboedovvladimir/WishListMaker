@@ -3,24 +3,41 @@ import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {WishItemInterface} from '../interfaces/wish-item.interface';
-import {WishListItemInterface} from '../interfaces/wish-list-item.interface';
 
 
 @Injectable()
-export  class APIService {
+export class APIService {
   constructor(private http: HttpClient) {
   }
+
   inits: any;
+
   setInits(callback) {
     this.inits = callback;
   }
+
   doInits() {
     this.inits();
   }
+
+  getUserEmail(): Observable<any> {
+    return this.http.post('http://localhost:8080/getuseremail',
+      {
+        'token': `${localStorage.getItem('WishListMaker')
+          ? localStorage.getItem('WishListMaker')
+          : sessionStorage.getItem('WishListMaker')}`
+      }).pipe(
+      map(json => {
+        return json;
+      })
+    );
+  }
+
   addWishList(wishList) {
     this.http.post('http://localhost:8080/addwishlists',
       {wishList}).subscribe();
   }
+
   getWishLists(): Observable<any> {
     return this.http.post('http://localhost:8080/getwishlists',
       {
@@ -33,16 +50,35 @@ export  class APIService {
       })
     );
   }
+deleteWishList(id: string): Observable<any> {
+  return this.http.post('http://localhost:8080/deletewishlist',
+    {
+      id: id
+    });
+}
+  getWishList(id): Observable<any> {
+    return this.http.post('http://localhost:8080/getwishlist',
+      {
+        'id': id
+      }).pipe(
+      map(json => {
+        return json;
+      })
+    );
+  }
+
   addWishes(wish: WishItemInterface) {
     this.http.post('http://localhost:8080/addwishes',
       {wish}).subscribe();
   }
+
   deleteWhishes(id: string) {
-     this.http.post('http://localhost:8080/deletewishes',
+    return this.http.post('http://localhost:8080/deletewishes',
       {
         id: id
-      }).subscribe();
-}
+      });
+  }
+
   getWishes(): Observable<any> {
     return this.http.post('http://localhost:8080/getwishes',
       {

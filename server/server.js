@@ -111,6 +111,26 @@ app.post('/authorization',(req,res)=>{
   })
 });
 
+app.post('/getuseremail',(req,res)=>{
+  MongoClient.connect(url, (err, client)=>{
+    assert.equal(null,err);
+    console.log('Connected seccessful to server');
+    const db = client.db(dbName);
+    findAll(db,'users',(data)=>{
+      let email='';
+      for (let i of data){
+        if (i.token === req.body.token){
+          email = i.email;
+        }
+      }
+      let result=JSON.stringify(email);
+      return res.end(result);
+    });
+    client.close();
+  })
+});
+
+
 app.post('/getwishes',(req,res)=>{
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
@@ -257,6 +277,48 @@ app.post('/getwishlists',(req,res)=>{
   });
 });
 
+app.post('/getwishlist',(req,res)=>{
+  MongoClient.connect(url, (err, client)=>{
+    assert.equal(null,err);
+    console.log('Connected seccessful to server');
+    const db = client.db(dbName);
+    MongoClient.connect(url, (err, client)=>{
+      assert.equal(null,err);
+      console.log('Connected seccessful to server');
+      const db = client.db(dbName);
+
+      findAll(db, 'wishlists' ,(data)=>{
+        let wishlist=[];
+        for (let i of data){
+          if (i.url=== req.body.id){
+            wishlist = i;
+          }
+        }
+        let result=JSON.stringify(wishlist);
+        return res.end(result);
+      });
+      client.close();
+    });
+    client.close();
+  });
+});
+
+app.post('/deletewishlist',  (req, res) =>{
+  let id = req.body.id;
+  MongoClient.connect(url, (err, client)=>{
+    assert.equal(null,err);
+    const db = client.db(dbName);
+    findAll(db, 'wishlists' ,(data)=>{
+      for (let i of data){
+        if (i._id.toString() === id){
+          db.collection("wishlists").deleteOne({_id: i._id}, (err,result) =>{
+            client.close();
+          });
+        }
+      }
+    });
+  });
+});
 
 app.listen(8080,()=>{
   console.log('We are live on ' + 8080);

@@ -8,16 +8,17 @@ import {APIService} from '../../../../services/API.service';
   styleUrls: ['./wish-item.component.scss']
 })
 export class WishItemComponent implements OnInit {
-@Input() itemData: WishItemInterface;
-@Output() Removing = new EventEmitter<string>();
+  @Input() itemData: WishItemInterface;
+  @Output() Removing = new EventEmitter<string>();
 
   constructor(private api: APIService) {
   }
 
   ngOnInit() {
   }
-Remove(id) {
-this.Removing.emit(id);
-  this.api.deleteWhishes(id);
-}
+
+  Remove(id) {
+    this.Removing.emit(id);
+    this.api.deleteWhishes(id).subscribe();
+  }
 }

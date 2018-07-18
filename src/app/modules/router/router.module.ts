@@ -7,6 +7,9 @@ import {AuthorizationResolver} from '../../resolvers/authorization.resolver';
 import {AuthorizationGuard} from '../../guards/authorization.guard';
 import {LoginGuard} from '../../guards/login.guard';
 import {RegistrationGuard} from '../../guards/registration.guard';
+import {WishListPageComponent} from '../../compomemts/wish-list-page/wish-list-page.component';
+import {WishlistGuard} from '../../guards/wishlist.guard';
+import {ErrorPageComponent} from '../../compomemts/error-page/error-page.component';
 
 
 const routes: Routes = [
@@ -18,6 +21,9 @@ const routes: Routes = [
   },
   {
     path: 'registration', component: RegistrationComponent, canActivate: [RegistrationGuard]
+  },
+  {
+    path: 'wishlists/:id', component: WishListPageComponent, canActivate: [AuthorizationGuard]
   },
   {
     path: '**', redirectTo: '', pathMatch: 'full'
