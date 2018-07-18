@@ -1,3 +1,11 @@
+<div>
 <div *ngFor="let itemData of items">
-<app-wish-list-page-item [itemData]="itemData" [userEmail]="userEmail"></app-wish-list-page-item>
+<app-wish-list-page-item (reCalculate)="reCalculate()" [wishList]="wishList" [itemData]="itemData" [userEmail]="userEmail"></app-wish-list-page-item>
+</div>
+</div>
+<div>
+  <p>Total: {{calc.total}}</p>
+  <div *ngFor="let sum of calc.membersSumMap">
+  <p>{{sum[0]}} spend {{sum[1]}}RUB</p>
+  </div>
 </div>

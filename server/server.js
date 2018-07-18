@@ -217,7 +217,8 @@ app.post('/addwishes',  (req, res) =>{
       const db = client.db(dbName);
       const collection = db.collection('wishes');
       collection.insertOne(wish,(err,results)=>{
-        res.end()
+        res.end();
+        client.close();
       });
     });
   });
@@ -246,7 +247,8 @@ app.post('/addwishlists',  (req, res) =>{
     const db = client.db(dbName);
     const collection = db.collection('wishlists');
     collection.insertOne(wishList,(err,results)=>{
-      res.end()
+      res.end();
+      client.close();
     });
   });
 });
@@ -319,6 +321,22 @@ app.post('/deletewishlist',  (req, res) =>{
     });
   });
 });
+
+app.post('/updatewishlists',  (req, res) =>{
+  let wishList = req.body.wishList;
+  MongoClient.connect(url, (err, client)=>{
+    const db = client.db(dbName);
+    const collection = db.collection('wishlists');
+      collection.updateOne(
+        {url : wishList.url},
+        {$set: {wishes: wishList.wishes}},
+        ()=>{
+          client.close();
+        }
+      )
+    });
+  });
+
 
 app.listen(8080,()=>{
   console.log('We are live on ' + 8080);

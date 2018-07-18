@@ -33,9 +33,14 @@ export class APIService {
     );
   }
 
-  addWishList(wishList) {
-    this.http.post('http://localhost:8080/addwishlists',
-      {wishList}).subscribe();
+  addWishList(wishList): Observable<any> {
+    return  this.http.post('http://localhost:8080/addwishlists',
+      {wishList});
+  }
+
+  updateWishList(wishList): Observable<any> {
+    return  this.http.post('http://localhost:8080/updatewishlists',
+      {wishList});
   }
 
   getWishLists(): Observable<any> {

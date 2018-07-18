@@ -11,7 +11,7 @@ export class WishListPageComponent implements OnInit {
   checkedRights = false;
   faultRights = false;
   userEmail: string;
-list: any;
+  wishList: any;
   constructor(private api: APIService) {
 
     let preloader = new Image(200, 200);
@@ -21,7 +21,7 @@ list: any;
     document.body.appendChild(preloader);
     let id = document.location.pathname.split('/')[2];
     this.api.getWishList(id).subscribe(res => {
-      this.list = res.wishes;
+      this.wishList = res;
       let arrMembers = res.members.split(',');
       this.api.getUserEmail().subscribe(email => {
         this.userEmail = email;

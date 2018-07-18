@@ -29,6 +29,7 @@ closeWindow() {
     this.wishes.forEach((el) => {
             if (el._id === elArr[i].name) {
               wishesArr.push({
+                id: el._id,
               name: el.name,
               link: el.link,
               imagePath: el.imagePath,
@@ -50,7 +51,7 @@ closeWindow() {
     wishes: wishesArr,
     url: guid()
   };
-    this.api.addWishList(wishList);
+    this.api.addWishList(wishList).subscribe();
     this.closeWindow();
     this.ReRenderWishList.emit();
   }

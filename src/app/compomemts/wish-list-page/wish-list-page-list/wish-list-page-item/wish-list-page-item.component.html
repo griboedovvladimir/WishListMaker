@@ -4,6 +4,8 @@
     <input #wanttobuy type="checkbox" name="iWantToBuy" id="iWantToBuy" [checked]="checkbox" >
     <label for="notes">You can add or change notes</label>
   <input #notes type="text" name="notes" id="notes" [value]="itemData.notes">
+    <label for="price">Correcting price</label>
+    <input #price type="number" min="1" id="price" name="price" [value]="itemData.price">
   </div>
   <img [attr.src]="itemData.imagePath">
   <p>{{itemData.name}}</p>
@@ -16,5 +18,5 @@
     {{member}}
   </p>
   <p>{{itemData.notes}}</p>
-  <button type="button" (click)="change(changeButton, wanttobuy, notes)">{{changeButton}}</button>
+  <button type="button" (click)="change(changeButton, wanttobuy, notes, price)">{{changeButton}}</button>
 </div>

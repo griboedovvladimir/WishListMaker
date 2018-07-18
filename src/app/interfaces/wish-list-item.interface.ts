@@ -1,4 +1,5 @@
 export interface WishListItemInterface {
+  id: string;
   name: string;
   link: string;
   imagePath: string;
