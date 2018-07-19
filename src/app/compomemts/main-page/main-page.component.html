@@ -1,17 +1,25 @@
-<div >
-  <div *ngIf="addActive"><app-add-wishes (closeAddForm)="closeAddForm($event)"></app-add-wishes></div>
+<div>
+  <div *ngIf="addActive">
+    <app-add-wishes (closeAddForm)="closeAddForm($event)"></app-add-wishes>
+  </div>
   <h1 class="container" [ngStyle]="style" style="justify-content: center">
     <span> {{'Welcome_to' | localize }}</span><span>{{title}}</span>
   </h1>
 </div>
 <div class="container" [ngStyle]="style">
   <div>{{currentDate | dateFormat }}</div>
-  <div> {{12000000 | numberFormat}} </div>
+  <div> {{12000000 | numberFormat}}</div>
 </div>
-<div class="row"  [ngStyle]="style" >
-  <img [attr.src]= "url" (click)="burgerClick()">
-  <div *ngIf="menuActive"><app-main-left-menu (showAddForm)="showAddForm($event)" (goShowWishLists)="goShowWishLists($event)">
-  </app-main-left-menu></div>
-  <div  class="list" *ngIf="wishesActive"><app-wish-items-list></app-wish-items-list></div>
-  <div class="list" *ngIf="!wishesActive"><app-wish-list-list (removeWishLists) = "removeWishLists($event)"></app-wish-list-list></div>
+<div class="row" [ngStyle]="style">
+  <img [attr.src]="url" (click)="burgerClick()">
+  <div *ngIf="menuActive">
+    <app-main-left-menu (showAddForm)="showAddForm($event)" (goShowWishLists)="goShowWishLists($event)">
+    </app-main-left-menu>
+  </div>
+  <div class="list" *ngIf="wishesActive">
+    <app-wish-items-list></app-wish-items-list>
+  </div>
+  <div class="list" *ngIf="!wishesActive">
+    <app-wish-list-list (removeWishLists)="removeWishLists($event)"></app-wish-list-list>
+  </div>
 </div>

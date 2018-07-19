@@ -12,6 +12,7 @@ export class WishListPageListComponent implements OnInit {
   members: string;
   items: any;
   calc: any;
+  show: boolean;
 
   constructor(private  api: APIService) {
   }
@@ -20,6 +21,9 @@ export class WishListPageListComponent implements OnInit {
     this.items = this.wishList.wishes;
     this.members = this.wishList.members.split(',');
     this.calculate(this.wishList);
+    this.show = !(this.wishList.userToken === (localStorage.getItem('WishListMaker')
+      ? localStorage.getItem('WishListMaker')
+      : sessionStorage.getItem('WishListMakerStore')));
   }
 reCalculate() {
     this.api.getWishList(this.wishList.url).subscribe(res => {
@@ -28,6 +32,7 @@ reCalculate() {
 }
   calculate(wishlist) {
     let total = 0;
+    let totalAll = 0;
     let membersSumMap = new Map<string, number>();
     let membersTotalMap = new Map<string, number>();
     let membersArr = wishlist.members.split(',');
@@ -36,6 +41,9 @@ reCalculate() {
     });
     wishlist.wishes.forEach(i => {
       if (i.price) {
+        totalAll = totalAll + parseInt(i.price, 10);
+      }
+      if (i.price && i.members[0]) {
         total = total + parseInt(i.price, 10);
         let costAverage = i.price / i.members.length;
         i.members.forEach(member => {
@@ -47,6 +55,6 @@ reCalculate() {
     for (let[key, value] of membersSumMap) {
       membersTotalMap.set(key, average - value);
     }
-    this.calc = {total: total, membersSumMap: [...membersSumMap], membersTotalMap: [...membersTotalMap]};
+    this.calc = {total: total, membersSumMap: [...membersSumMap], membersTotalMap: [...membersTotalMap], totalAll};
   }
 }

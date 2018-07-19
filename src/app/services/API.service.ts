@@ -25,7 +25,7 @@ export class APIService {
       {
         'token': `${localStorage.getItem('WishListMaker')
           ? localStorage.getItem('WishListMaker')
-          : sessionStorage.getItem('WishListMaker')}`
+          : sessionStorage.getItem('WishListMakerStore')}`
       }).pipe(
       map(json => {
         return json;
@@ -48,7 +48,7 @@ export class APIService {
       {
         'token': `${localStorage.getItem('WishListMaker')
           ? localStorage.getItem('WishListMaker')
-          : sessionStorage.getItem('WishListMaker')}`
+          : sessionStorage.getItem('WishListMakerStore')}`
       }).pipe(
       map(json => {
         return json;
@@ -89,7 +89,7 @@ deleteWishList(id: string): Observable<any> {
       {
         'token': `${localStorage.getItem('WishListMaker')
           ? localStorage.getItem('WishListMaker')
-          : sessionStorage.getItem('WishListMaker')}`
+          : sessionStorage.getItem('WishListMakerStore')}`
       }).pipe(
       map(json => {
         return json;

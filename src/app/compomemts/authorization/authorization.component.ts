@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthorizationService} from '../../services/authorization.service';
 import {LocalizationService} from '../../services/localization.service';
 import {Router} from '@angular/router';
@@ -10,18 +10,20 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./authorization.component.scss']
 })
 export class AuthorizationComponent implements OnInit {
-authorize = {
-  email: '',
-  password: ''
-};
-remember = false;
+  authorize = {
+    email: '',
+    password: ''
+  };
+  remember = false;
   registrationErr = '';
   formSubmitted = false;
-  constructor(private Authorization: AuthorizationService, localizationService: LocalizationService,  private router: Router) {
+
+  constructor(private Authorization: AuthorizationService, localizationService: LocalizationService, private router: Router) {
     localizationService.onChange(code => {
     });
     this.remember = false;
   }
+
   getValidationMessages(state: any, thingName?: string) {
     let thing: string = state.path || thingName;
     let messages: string[] = [];
@@ -43,6 +45,7 @@ remember = false;
     }
     return messages;
   }
+
   getFormValidationMessages(form: NgForm): Array<string> {
     let messages: string[] = [];
     Object.keys(form.controls).forEach(k => {
@@ -50,17 +53,19 @@ remember = false;
     });
     return messages;
   }
+
   ngOnInit() {
   }
 
-onSubmit(form: NgForm, remember, el) {
+  onSubmit(form: NgForm, remember, el) {
     if (form.valid) {
       this.Authorization.checkAuthorization(this.authorize.email, this.authorize.password).then(res => {
         if (res) {
           if (remember) {
-           localStorage.setItem('WishListMaker', res);
+            localStorage.setItem('WishListMaker', res);
           } else {
             sessionStorage.setItem('WishListMaker', res);
+            sessionStorage.setItem('WishListMakerStore', res);
           }
           this.Authorization.authorizated = true;
           this.router.navigate(['/']);
@@ -74,5 +79,5 @@ onSubmit(form: NgForm, remember, el) {
       preloader.id = 'preloader';
       document.body.appendChild(preloader);
     }
-}
+  }
 }

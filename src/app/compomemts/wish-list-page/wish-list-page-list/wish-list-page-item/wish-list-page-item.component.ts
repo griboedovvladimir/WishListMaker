@@ -14,6 +14,7 @@ export class WishListPageItemComponent implements OnInit {
   formActive = 'unvisible';
   checkbox = false;
   changeButton = 'Change';
+  show: boolean;
 
   constructor(private api: APIService) {
   }
@@ -22,6 +23,9 @@ export class WishListPageItemComponent implements OnInit {
     if (this.itemData.members.includes(this.userEmail)) {
       this.checkbox = true;
     }
+    this.show = !(this.wishList.userToken === (localStorage.getItem('WishListMaker')
+      ? localStorage.getItem('WishListMaker')
+      : sessionStorage.getItem('WishListMakerStore')));
   }
 
   change(changeButton, iWantToBuy, notes, price) {
@@ -44,6 +48,6 @@ export class WishListPageItemComponent implements OnInit {
       });
       this.api.updateWishList(this.wishList).subscribe();
     }
-this.reCalculate.emit();
+    this.reCalculate.emit();
   }
 }

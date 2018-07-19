@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppRouterModule} from './modules/router/router.module';
 import * as components from './components';
@@ -10,29 +10,13 @@ import {AuthorizationGuard} from './guards/authorization.guard';
 import {HttpClientModule} from '@angular/common/http';
 import {LoginGuard} from './guards/login.guard';
 import {RegistrationGuard} from './guards/registration.guard';
-import { FileSelectDirective } from 'ng2-file-upload';
-import { WishListListComponent } from './compomemts/main-page/wish-list-list/wish-list-list.component';
-import { AddWishlistComponent } from './compomemts/main-page/wish-list-list/add-wishlist/add-wishlist.component';
-import { WishListPageComponent } from './compomemts/wish-list-page/wish-list-page.component';
-import { ErrorPageComponent } from './compomemts/error-page/error-page.component';
-import { WishListPageListComponent } from './compomemts/wish-list-page/wish-list-page-list/wish-list-page-list.component';
-import { WishListPageItemComponent } from './compomemts/wish-list-page/wish-list-page-list/wish-list-page-item/wish-list-page-item.component';
-
-
-
-
+import {FileSelectDirective} from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
     ...Object.values(components),
-   ...Object.values(pipes),
+    ...Object.values(pipes),
     FileSelectDirective,
-    WishListListComponent,
-    AddWishlistComponent,
-    WishListPageComponent,
-    ErrorPageComponent,
-    WishListPageListComponent,
-    WishListPageItemComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +25,7 @@ import { WishListPageItemComponent } from './compomemts/wish-list-page/wish-list
     HttpClientModule
   ],
   providers: [
-   Object.values(services),
+    Object.values(services),
     AuthorizationResolver,
     AuthorizationGuard,
     LoginGuard,
@@ -49,4 +33,5 @@ import { WishListPageItemComponent } from './compomemts/wish-list-page/wish-list
   ],
   bootstrap: [components.AppRootComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -27,7 +27,7 @@ export class WishListPageComponent implements OnInit {
         this.userEmail = email;
         if (arrMembers.includes(email) || res.userToken === (localStorage.getItem('WishListMaker')
           ? localStorage.getItem('WishListMaker')
-          : sessionStorage.getItem('WishListMaker'))) {
+          : sessionStorage.getItem('WishListMakerStore'))) {
           this.checkedRights = true;
         } else {
           this.faultRights = true;

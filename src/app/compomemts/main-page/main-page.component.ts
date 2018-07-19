@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LocalizationService} from '../../services/localization.service';
-import { LocalizePipe } from '../../pipes/localize.pipe';
+import {LocalizePipe} from '../../pipes/localize.pipe';
 
 
 @Component({
@@ -8,14 +8,15 @@ import { LocalizePipe } from '../../pipes/localize.pipe';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss']
 })
-export class MainPageComponent  implements OnInit {
+export class MainPageComponent implements OnInit {
   currentDate = new Date();
   style: any = {flexDirection: 'row'};
   title = 'WishListMaker';
   menuActive = false;
   addActive = false;
   wishesActive = true;
-url = '/assets/img/appImg/hamburger.svg';
+  url = '/assets/img/appImg/hamburger.svg';
+
   constructor(localizationService: LocalizationService) {
     localizationService.onChange(code => {
       if (localizationService.getCurrentLocalization().isRtl) {
@@ -25,14 +26,16 @@ url = '/assets/img/appImg/hamburger.svg';
       }
     });
   }
+
   ngOnInit() {
-    if (sessionStorage.getItem('WishListMaker')) {
-      sessionStorage.removeItem('WishListMaker');
-    }
     if (document.getElementById('preloader')) {
       document.getElementById('preloader').remove();
     }
+    if (sessionStorage.getItem('WishListMaker')) {
+      sessionStorage.removeItem('WishListMaker');
+    }
   }
+
   burgerClick() {
     if (this.menuActive !== true) {
       this.menuActive = true;
@@ -42,17 +45,21 @@ url = '/assets/img/appImg/hamburger.svg';
       this.menuActive = false;
     }
   }
+
   showAddForm() {
     this.addActive = true;
     this.menuActive = false;
     this.url = '/assets/img/appImg/hamburger.svg';
   }
+
   closeAddForm() {
     this.addActive = false;
   }
+
   removeWishLists() {
     this.wishesActive = true;
   }
+
   goShowWishLists() {
     this.wishesActive = false;
     this.burgerClick();
