@@ -13,7 +13,11 @@ const URL = 'http://localhost:8080/upload';
 })
 
 export class AddWishesComponent implements OnInit {
-
+  wish = {
+    name: '',
+    addPrice: 1,
+    addLink: '',
+  };
   public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'file'});
   @Output() closeAddForm = new EventEmitter();
 
@@ -30,28 +34,30 @@ export class AddWishesComponent implements OnInit {
     };
   }
 
-  onSubmit(form) {
-    let dataWhish = {
-      userToken: `${localStorage.getItem('WishListMaker')
-        ? localStorage.getItem('WishListMaker')
-        : sessionStorage.getItem('WishListMaker')}`,
-      name: form.addName.value,
-      link: form.addLink.value,
-      imagePath: form.addlinkImg.value || '/assets/img/appImg/defoultImg.png',
-      price: form.addPrice.value,
-      description: form.addDescript.value,
-      _id: ''
-    };
-    if (form.file.value) {
-      this.uploader.uploadAll();
-      this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-        dataWhish.imagePath = 'http://localhost:8080/' + JSON.parse(response).filename;
-        this.api.addWishes(dataWhish);
+  onSubmit(form, validation) {
+    if (validation.valid) {
+      let dataWhish = {
+        userToken: `${localStorage.getItem('WishListMaker')
+          ? localStorage.getItem('WishListMaker')
+          : sessionStorage.getItem('WishListMaker')}`,
+        name: form.addName.value,
+        link: form.addLink.value,
+        imagePath: form.addlinkImg.value || '/assets/img/appImg/defoultImg.png',
+        price: parseInt(form.addPrice.value, 10),
+        description: form.addDescript.value,
+        _id: ''
       };
-    } else {
-      this.api.addWishes(dataWhish);
+      if (form.file.value) {
+        this.uploader.uploadAll();
+        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          dataWhish.imagePath = 'http://localhost:8080/' + JSON.parse(response).filename;
+          this.api.addWishes(dataWhish);
+        };
+      } else {
+        this.api.addWishes(dataWhish);
+      }
+      this.api.doInits();
+      this.closeAdd();
     }
-    this.api.doInits();
-    this.closeAdd();
   }
 }

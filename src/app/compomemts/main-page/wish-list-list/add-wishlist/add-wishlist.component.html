@@ -1,9 +1,14 @@
 <div class="wrapper">
   <div class="window">
     <div class="remove" ><img (click)="closeWindow()" src="/assets/img/appImg/cross.svg"></div>
-    <form #form (submit)="onSubmit(form)">
+    <form  #form #validation="ngForm" (submit)="onSubmit(form,validation)">
       <label for="wishListName">Write name of your new wishlist</label>
-      <input type="text" name="wishListName" id="wishListName">
+      <input type="text" name="wishListName" id="wishListName"
+      required
+             [(ngModel)]="wishlistModel.wishListName"
+             minlength="4"
+             pattern="^[A-zА-я0-9_-]{4,25}$"
+      >
       <p>Choice wishes from your wishes</p>
       <div *ngFor="let i of wishes">
       <label>{{i.name}}
@@ -11,7 +16,12 @@
       </label>
       </div>
       <label for="members">Add members</label>
-      <input id="members" type="text" name="members">
+      <input id="members" type="text" name="members"
+             [(ngModel)]="wishlistModel.members"
+      required
+      minlength="6"
+             pattern="^((([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6})\s?[,]?\s?)+$"
+      >
       <button type="submit">Create wishlist</button>
     </form>
   </div>

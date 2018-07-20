@@ -11,50 +11,60 @@ import {guid} from '../../../../helpers/guid.helper';
 })
 export class AddWishlistComponent implements OnInit {
   wishes: Array<WishItemInterface>;
-@Output() closeAddWishlist = new EventEmitter();
-@Output() ReRenderWishList = new EventEmitter();
-closeWindow() {
-  this.closeAddWishlist.emit();
-}
+  @Output() closeAddWishlist = new EventEmitter();
+  @Output() ReRenderWishList = new EventEmitter();
+  wishlistModel = {
+    wishListName: '',
+    members: ''
+  };
+
+  closeWindow() {
+    this.closeAddWishlist.emit();
+  }
+
   constructor(private api: APIService) {
     this.api.getWishes().subscribe(res => {
       this.wishes = res;
     });
   }
-  onSubmit(form) {
-  let elArr = form.querySelectorAll('input');
-  let wishesArr: Array<WishListItemInterface> = [];
-  for (let i = 0; i < elArr.length; i++) {
-    if (elArr[i].checked) {
-    this.wishes.forEach((el) => {
+
+  onSubmit(form, validation) {
+    if (validation.validate) {
+      let elArr = form.querySelectorAll('input');
+      let wishesArr: Array<WishListItemInterface> = [];
+      for (let i = 0; i < elArr.length; i++) {
+        if (elArr[i].checked) {
+          this.wishes.forEach((el) => {
             if (el._id === elArr[i].name) {
               wishesArr.push({
                 id: el._id,
-              name: el.name,
-              link: el.link,
-              imagePath: el.imagePath,
-              price: el.price,
-              description: el.description,
-              members: [],
-              notes: ''
+                name: el.name,
+                link: el.link,
+                imagePath: el.imagePath,
+                price: el.price,
+                description: el.description,
+                members: [],
+                notes: ''
               });
             }
           });
+        }
+      }
+      let wishList = {
+        userToken: `${localStorage.getItem('WishListMaker')
+          ? localStorage.getItem('WishListMaker')
+          : sessionStorage.getItem('WishListMaker')}`,
+        name: form.wishListName.value,
+        members: form.members.value,
+        wishes: wishesArr,
+        url: guid()
+      };
+      this.api.addWishList(wishList).subscribe();
+      this.closeWindow();
+      this.ReRenderWishList.emit();
     }
   }
-  let wishList = {
-    userToken: `${localStorage.getItem('WishListMaker')
-      ? localStorage.getItem('WishListMaker')
-      : sessionStorage.getItem('WishListMaker')}`,
-    name: form.wishListName.value,
-    members: form.members.value,
-    wishes: wishesArr,
-    url: guid()
-  };
-    this.api.addWishList(wishList).subscribe();
-    this.closeWindow();
-    this.ReRenderWishList.emit();
-  }
+
   ngOnInit() {
   }
 

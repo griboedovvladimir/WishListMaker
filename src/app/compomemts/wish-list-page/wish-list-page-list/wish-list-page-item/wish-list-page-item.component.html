@@ -13,7 +13,7 @@
   <p>{{itemData.price}}</p>
   <p>{{itemData.description}}</p>
   <hr>
-  <div *ngIf="show">
+  <div>
   <p *ngIf="itemData.members[0]">It will be buy:</p>
   <p *ngFor="let member of itemData.members">
     {{member}}

@@ -13,13 +13,16 @@
 <div class="row" [ngStyle]="style">
   <img [attr.src]="url" (click)="burgerClick()">
   <div *ngIf="menuActive">
-    <app-main-left-menu (showAddForm)="showAddForm($event)" (goShowWishLists)="goShowWishLists($event)">
+    <app-main-left-menu (goShowFollow)="showFollow($event)" (showAddForm)="showAddForm($event)" (goShowWishLists)="goShowWishLists($event)">
     </app-main-left-menu>
   </div>
   <div class="list" *ngIf="wishesActive">
     <app-wish-items-list></app-wish-items-list>
   </div>
-  <div class="list" *ngIf="!wishesActive">
+  <div class="list" *ngIf="!wishesActive && !follow">
     <app-wish-list-list (removeWishLists)="removeWishLists($event)"></app-wish-list-list>
+  </div>
+  <div *ngIf="!wishesActive && follow">
+    <app-follow-wishlists (removeFollowLists)="removeFollowLists($event)"></app-follow-wishlists>
   </div>
 </div>

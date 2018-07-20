@@ -16,6 +16,7 @@ export class MainPageComponent implements OnInit {
   addActive = false;
   wishesActive = true;
   url = '/assets/img/appImg/hamburger.svg';
+  follow = false;
 
   constructor(localizationService: LocalizationService) {
     localizationService.onChange(code => {
@@ -46,10 +47,20 @@ export class MainPageComponent implements OnInit {
     }
   }
 
+  showFollow() {
+    this.follow = true;
+    this.wishesActive = false;
+    this.burgerClick();
+  }
+
+  removeFollowLists() {
+    this.wishesActive = true;
+    this.follow = false;
+  }
+
   showAddForm() {
     this.addActive = true;
-    this.menuActive = false;
-    this.url = '/assets/img/appImg/hamburger.svg';
+    this.burgerClick();
   }
 
   closeAddForm() {
@@ -63,6 +74,7 @@ export class MainPageComponent implements OnInit {
   goShowWishLists() {
     this.wishesActive = false;
     this.burgerClick();
+    this.follow = false;
   }
 }
 

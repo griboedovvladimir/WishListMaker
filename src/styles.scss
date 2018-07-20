@@ -26,3 +26,10 @@ body {
   right: 10px;
 }
 
+input.ng-dirty.ng-invalid {
+  border-color: lightcoral
+}
+
+input.ng-dirty.ng-valid {
+  border-color: lightgreen
+}

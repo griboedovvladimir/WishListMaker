@@ -12,11 +12,16 @@ export class MainLeftMenuComponent implements OnInit {
   rtf = ['menuWrapper'];
   @Output() showAddForm = new EventEmitter();
   @Output() goShowWishLists = new EventEmitter();
+  @Output() goShowFollow = new EventEmitter();
   showWishLists() {
     this.goShowWishLists.emit();
   }
   showAdd() {
     this.showAddForm.emit();
+  }
+
+  showFollow() {
+    this.goShowFollow.emit();
   }
   constructor(private localizationService: LocalizationService, private router: Router) {
     if (localizationService.getCurrentLocalization().isRtl) {

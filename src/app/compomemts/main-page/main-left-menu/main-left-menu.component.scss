@@ -21,7 +21,7 @@
 .rtf{
   width: 250px;
   position: absolute;
-  height: 280px;
+  height: 340px;
   transform: translateX(-255px);
   display: flex;
   flex-direction: column;
@@ -46,9 +46,9 @@
     }
   }
   div.menuItem:last-child{
-    transform: rotate(3deg);
+    transform: rotate(-1deg);
     div {
-      transform: rotate(-3deg);
+      transform: rotate(1deg);
     }
   }
   div.menuItem:first-child{
@@ -73,9 +73,9 @@
      }
    }
   div.menuItem:last-child{
-    transform: rotate(-3deg);
+    transform: rotate(1deg);
     div {
-      transform: rotate(3deg);
+      transform: rotate(-1deg);
     }
   }
   div.menuItem:first-child{
