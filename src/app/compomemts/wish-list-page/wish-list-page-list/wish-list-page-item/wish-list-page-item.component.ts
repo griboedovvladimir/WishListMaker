@@ -13,7 +13,7 @@ export class WishListPageItemComponent implements OnInit {
   @Output() reCalculate = new EventEmitter();
   formActive = 'unvisible';
   checkbox = false;
-  changeButton = 'Change';
+  changeButton = 'change';
   show: boolean;
 
   constructor(private api: APIService) {
@@ -28,17 +28,15 @@ export class WishListPageItemComponent implements OnInit {
       : sessionStorage.getItem('WishListMakerStore')));
   }
 
-  change(changeButton, iWantToBuy, notes, price) {
-    this.changeButton = changeButton === 'Change' ? 'Save Change' : 'Change';
-    this.formActive = 'unvisible' && changeButton === 'Change' ? 'visible' : 'unvisible';
+  change(changeButton) {
+    this.changeButton = changeButton === 'change' ? 'save_changes' : 'change';
+    this.formActive = 'unvisible' && changeButton === 'change' ? 'visible' : 'unvisible';
 
-    if (changeButton === 'Save Change') {
-      this.itemData.notes = notes.value;
-      this.itemData.price = price.value;
-      if (iWantToBuy.checked === true && !this.itemData.members.includes(this.userEmail)) {
+    if (changeButton === 'save_changes') {
+      if (this.checkbox === true && !this.itemData.members.includes(this.userEmail)) {
         this.itemData.members.push(this.userEmail);
       }
-      if (iWantToBuy.checked === false && this.itemData.members.includes(this.userEmail)) {
+      if (this.checkbox === false && this.itemData.members.includes(this.userEmail)) {
         this.itemData.members.splice(this.userEmail, 1);
       }
       this.wishList.wishes.forEach((i, index) => {

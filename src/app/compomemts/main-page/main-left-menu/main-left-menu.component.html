@@ -1,8 +1,8 @@
 <script src="main-left-menu.component.ts"></script>
 <div [class]="rtf" >
-  <div class="menuItem" (click)="showAdd()"><div>Make new wish</div></div>
-  <div class="menuItem" (click)="showWishLists()"><div>Wishlists</div></div>
-  <div class="menuItem" (click)="showFollow()"><div>Follow wishlists</div></div>
-  <div class="menuItem"><div>Settings</div></div>
-  <div class="menuItem" (click)="logOut()"><div>Log out</div></div>
+  <div class="menuItem" (click)="showAdd()"><div>{{'make_new_wish'|localize}}</div></div>
+  <div class="menuItem" (click)="showWishLists()"><div>{{'wishlists'|localize}}</div></div>
+  <div class="menuItem" (click)="showFollow()"><div>{{'follow_wishlists'|localize}}</div></div>
+  <div class="menuItem"><div>{{'settings'|localize}}</div></div>
+  <div class="menuItem" (click)="logOut()"><div>{{'log_out'|localize}}</div></div>
 </div>

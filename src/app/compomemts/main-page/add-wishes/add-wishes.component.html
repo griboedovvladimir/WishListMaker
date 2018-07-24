@@ -2,32 +2,32 @@
   <div class="window">
     <div class="remove"><img (click)="closeAdd()" src="/assets/img/appImg/cross.svg"></div>
     <form #form #validation="ngForm" (submit)="onSubmit(form,validation)">
-      <label for="addName">Name</label>
+      <label for="addName">{{'wish_name'|localize}}</label>
       <input id="addName" type="text" name="name"
              [(ngModel)]="wish.name"
              required
              minlength="5"
              pattern="^[A-zА-я0-9_-]{5,25}$"
       />
-      <label for="addDescript">addDescription</label>
+      <label for="addDescript">{{'add_description'|localize}}</label>
       <textarea rows="4" name="addDescript" id="addDescript"></textarea>
-      <label for="addLink">link</label>
+      <label for="addLink">{{'wish_link'|localize}}</label>
       <input type="text" name="addLink" id="addLink"
              [(ngModel)]="wish.addLink"
              required
              pattern="^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$"
       />
-      Price <input type="number" name="addPrice" id="addPrice" min="1"
+      {{'wish_price'|localize}} <input type="number" name="addPrice" id="addPrice" min="1"
                    [(ngModel)]="wish.addPrice"
                    required
                    pattern="^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$"
     > BLR
-      <label for="file">Upload image</label>
+      <label for="file">{{'upload_img'|localize}}</label>
       <input type="file" name="file" id="file" ng2FileSelect [uploader]="uploader"/>
-      or write link to img<label><input type="text" name="addlinkImg" id="addlinkImg"
+      {{'or write link to img'|localize}}<label><input type="text" name="addlinkImg" id="addlinkImg"
     /></label>
 
-      <button type="submit">Add</button>
+      <button type="submit">{{'add_wish'|localize}}</button>
     </form>
   </div>
 </div>

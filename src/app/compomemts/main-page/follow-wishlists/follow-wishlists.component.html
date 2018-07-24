@@ -1,4 +1,9 @@
-<div class="back" (click)="goBack()">Back to wishes</div>
-<p>
-  follow-wishlists works!
-</p>
+<div class="back" (click)="goBack()">{{'back_to_wishes'|localize}}</div>
+<div *ngIf="message">{{'do_not_follow'|localize}}</div>
+<div #item *ngFor="let wishlist of wishlists" class="item">
+  <div class="content">
+    <p>{{wishlist.name}} {{'by'|localize}} {{wishlist.maker}} </p>
+    <p>{{'members'|localize}}: {{wishlist.members}}</p>
+    <p (click)="derectToWishlist(wishlist.url)">url:{{host + wishlist.url}}</p>
+  </div>
+</div>

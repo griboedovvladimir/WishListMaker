@@ -46,23 +46,27 @@ formSubmitted = false;
     return messages;
   }
   submitForm(form: NgForm) {
-    this.Authorize.checkUser(this.user.email).then(res => {
-      if (res) {
-        this.registrationErr = 'This email is already exist';
-      } else if (res === false && form.valid) {
-        this.Authorize.registerUser(this.user).then(token => {
-          localStorage.setItem('WishListMaker', token); this.router.navigate(['/']);
-          form.reset();
-          this.formSubmitted = false;
-        });
-      }
-    });
+    if (form.valid) {
+      this.Authorize.checkUser(this.user.email).then(res => {
+        if (res) {
+          this.registrationErr = 'This email is already exist';
+        } else if (res === false && form.valid) {
+          this.Authorize.registerUser(this.user).then(token => {
+            localStorage.setItem('WishListMaker', token);
+            this.router.navigate(['/']);
+            form.reset();
+            this.formSubmitted = false;
+
+            let preloader = new Image(200, 200);
+            preloader.src = 'assets/img/appImg/preloader.svg';
+            preloader.style.cssText = 'position: absolute; top: 50%; left: 50%; margin: -100px 0 0 -100px';
+            preloader.id = 'preloader';
+            document.body.appendChild(preloader);
+          });
+        }
+      });
+    }
     this.formSubmitted = true;
-    let preloader = new Image(200, 200);
-    preloader.src = 'assets/img/appImg/preloader.svg';
-    preloader.style.cssText = 'position: absolute; top: 50%; left: 50%; margin: -100px 0 0 -100px';
-    preloader.id = 'preloader';
-    document.body.appendChild(preloader);
   }
 onClick() {
 }

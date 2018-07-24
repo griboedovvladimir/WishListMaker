@@ -44,7 +44,6 @@ app.get('/authorization/:id', (req, res) => {
   let email = String(req.params.id.slice(1));
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
-    console.log('Connected seccessful to server');
     const db = client.db(dbName);
 let check = false;
     findAll(db, 'users' ,(data)=>{
@@ -65,7 +64,6 @@ app.post('/registration',(req,res)=> {
     user.token = guid();
     MongoClient.connect(url, (err, client)=>{
       assert.equal(null,err);
-      console.log('Connected seccessful to server');
       const db = client.db(dbName);
 const collection = db.collection('users');
 collection.insertOne(user,(err,results)=>{
@@ -78,7 +76,6 @@ collection.insertOne(user,(err,results)=>{
 app.post('/localization',(req,res)=>{
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
-    console.log('Connected seccessful to server');
     const db = client.db(dbName);
 
     findAll(db,'localization',(data)=>{
@@ -95,7 +92,6 @@ app.post('/localization',(req,res)=>{
 app.post('/authorization',(req,res)=>{
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
-    console.log('Connected seccessful to server');
     const db = client.db(dbName);
     findAll(db,'users',(data)=>{
       let token='';
@@ -114,7 +110,6 @@ app.post('/authorization',(req,res)=>{
 app.post('/getuseremail',(req,res)=>{
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
-    console.log('Connected seccessful to server');
     const db = client.db(dbName);
     findAll(db,'users',(data)=>{
       let email='';
@@ -134,11 +129,9 @@ app.post('/getuseremail',(req,res)=>{
 app.post('/getwishes',(req,res)=>{
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
-    console.log('Connected seccessful to server');
     const db = client.db(dbName);
     MongoClient.connect(url, (err, client)=>{
       assert.equal(null,err);
-      console.log('Connected seccessful to server');
       const db = client.db(dbName);
 
     findAll(db, 'wishes',(data)=>{
@@ -256,11 +249,9 @@ app.post('/addwishlists',  (req, res) =>{
 app.post('/getwishlists',(req,res)=>{
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
-    console.log('Connected seccessful to server');
     const db = client.db(dbName);
     MongoClient.connect(url, (err, client)=>{
       assert.equal(null,err);
-      console.log('Connected seccessful to server');
       const db = client.db(dbName);
 
       findAll(db, 'wishlists' ,(data)=>{
@@ -282,11 +273,9 @@ app.post('/getwishlists',(req,res)=>{
 app.post('/getwishlist',(req,res)=>{
   MongoClient.connect(url, (err, client)=>{
     assert.equal(null,err);
-    console.log('Connected seccessful to server');
     const db = client.db(dbName);
     MongoClient.connect(url, (err, client)=>{
       assert.equal(null,err);
-      console.log('Connected seccessful to server');
       const db = client.db(dbName);
 
       findAll(db, 'wishlists' ,(data)=>{
@@ -294,6 +283,30 @@ app.post('/getwishlist',(req,res)=>{
         for (let i of data){
           if (i.url=== req.body.id){
             wishlist = i;
+          }
+        }
+        let result=JSON.stringify(wishlist);
+        return res.end(result);
+      });
+      client.close();
+    });
+    client.close();
+  });
+});
+
+app.post('/getfollowwishlists',(req,res)=>{
+  MongoClient.connect(url, (err, client)=>{
+    assert.equal(null,err);
+    const db = client.db(dbName);
+    MongoClient.connect(url, (err, client)=>{
+      assert.equal(null,err);
+      const db = client.db(dbName);
+
+      findAll(db, 'wishlists' ,(data)=>{
+        let wishlist=[];
+        for (let i of data){
+          if (i.members.includes(req.body.email)){
+            wishlist.push(i);
           }
         }
         let result=JSON.stringify(wishlist);

@@ -1,14 +1,11 @@
 import {Injectable} from '@angular/core';
 import {LanguageDescription} from '../interfaces/localization.interface';
-import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import {IDBService} from './IDB.service';
-
 
 @Injectable()
 export class LocalizationService {
-  static LanguageMap = new Map <string, any>();
+  static LanguageMap = new Map<string, any>();
   changeCallbacks = new Set<(code: string) => void>();
   currentLanguage = 'ru-RU';
   private languages = new Map<string, LanguageDescription>([
@@ -35,21 +32,24 @@ export class LocalizationService {
   ]);
   strings = new Map<any, any>();
 
-  constructor (private http: HttpClient, private IDB: IDBService) {
-   this.strings.clear();
-}
-static setLanguageMap(base) {
-    for (let local of base) {
-      LocalizationService.LanguageMap.set( local.name, local);
-    }
-}
-  getLanguageMap() {
-     this.strings.clear();
-     for (let [key, value] of Object.entries(LocalizationService.LanguageMap.get(this.currentLanguage))) {
-       this.strings.set(key, value as string);
-     }
-     return this.strings;
+  constructor(private http: HttpClient, private IDB: IDBService) {
+    this.strings.clear();
   }
+
+  static setLanguageMap(base) {
+    for (let local of base) {
+      LocalizationService.LanguageMap.set(local.name, local);
+    }
+  }
+
+  getLanguageMap() {
+    this.strings.clear();
+    for (let [key, value] of Object.entries(LocalizationService.LanguageMap.get(this.currentLanguage))) {
+      this.strings.set(key, value as string);
+    }
+    return this.strings;
+  }
+
   getLanguageList(): Array<LanguageDescription> {
     return [...this.languages.values()];
   }

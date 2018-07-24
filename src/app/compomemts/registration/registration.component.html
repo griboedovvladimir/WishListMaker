@@ -1,34 +1,40 @@
-<h2>Registration</h2>
-<p>Please, fill in all fields for to register</p>
-<div>
-<form #form="ngForm" (ngSubmit)="submitForm(form)">
-  <div style="color:red"
-  *ngIf = "formSubmitted && form.invalid">
-    There are problems with form
-    <ul>
-      <li *ngFor="let error of getFormValidationMessages(form)">
-        {{error}}
-      </li>
-    </ul>
+<div class="wrapper">
+  <div class="background">
+    <div class="form">
+      <h1>{{'registration'|localize}}</h1>
+      <h2>{{'fill_all_fields'|localize}}</h2>
+      <div>
+        <form #form="ngForm" (ngSubmit)="submitForm(form)">
+          <label for="nameReg">{{'reg_nickname'|localize}}</label>
+          <input type="text" id="nameReg" name="name" [(ngModel)]="user.name"
+                 required
+                 minlength="2"
+                 pattern="^[A-zА-я0-9_-]{5,16}$"/>
+
+          <label for="emailReg">{{'reg_email'|localize}}</label>
+          <input type="email" id="emailReg" name="email" [(ngModel)]="user.email"
+                 required
+                 minlength="6"
+                 pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"/>
+
+          <label for="passReg">{{'reg_password'|localize}}</label>
+          <input type="password" id="passReg" name="password" [(ngModel)]="user.password"
+                 required
+                 minlength="6"
+                 pattern="^[A-zА-я1-9 ]+$"/>
+          <button type="submit" (click)="onClick()">{{'REGISTER'|localize}}</button>
+          <div class="err"
+               *ngIf="formSubmitted && form.invalid">
+            <ul>
+              <p>{{'problems_with_form'|localize}}</p>
+              <li *ngFor="let error of getFormValidationMessages(form)">
+                {{error|localize}}
+              </li>
+            </ul>
+          </div>
+          <div class="err" *ngIf="registrationErr">{{registrationErr}}</div>
+        </form>
+      </div>
+    </div>
   </div>
-  <label for="nameReg">Your nickname</label>
-  <input type="text" id="nameReg" name="name" [(ngModel)]="user.name"
-         required
-         minlength="2"
-         pattern="^[A-zА-я0-9_-]{5,16}$"/>
-
-  <label for="emailReg">Your email</label>
-  <input type="email" id="emailReg" name="email" [(ngModel)]="user.email"
-         required
-         minlength="6"
-         pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"/>
-
-  <label for="passReg">Password to your account</label>
-  <input type="password" id="passReg" name="password" [(ngModel)]="user.password"
-         required
-         minlength="6"
-         pattern="^[A-zА-я1-9 ]+$"/>
-  <div class="err" *ngIf="registrationErr">{{registrationErr}}</div>
-  <button type="submit" (click)="onClick()">Register</button>
-</form>
 </div>

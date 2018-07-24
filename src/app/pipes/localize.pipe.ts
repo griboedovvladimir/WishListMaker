@@ -14,8 +14,9 @@ export class LocalizePipe implements PipeTransform {
       this.map = this.localizationService.getLanguageMap();
     });
   }
+
   transform(string) {
-     let stringMap = this.map as Map<string, string>;
-      return stringMap.get(string);
+    let stringMap = this.map as Map<string, string>;
+    return stringMap.get(string);
   }
 }

@@ -6,10 +6,6 @@
     <span> {{'Welcome_to' | localize }}</span><span>{{title}}</span>
   </h1>
 </div>
-<div class="container" [ngStyle]="style">
-  <div>{{currentDate | dateFormat }}</div>
-  <div> {{12000000 | numberFormat}}</div>
-</div>
 <div class="row" [ngStyle]="style">
   <img [attr.src]="url" (click)="burgerClick()">
   <div *ngIf="menuActive">

@@ -1,24 +1,26 @@
 <div class="item">
   <div *ngIf="show" [ngClass]="formActive">
-    <label for="iWantToBuy">Check if you want to buy</label>
-    <input #wanttobuy type="checkbox" name="iWantToBuy" id="iWantToBuy" [checked]="checkbox" >
-    <label for="notes">You can add or change notes</label>
-  <input #notes type="text" name="notes" id="notes" [value]="itemData.notes">
-    <label for="price">Correcting price</label>
-    <input #price type="number" min="1" id="price" name="price" [value]="itemData.price">
+    <label for="iWantToBuy">{{'want_to_buy'|localize}}</label>
+    <input #wanttobuy type="checkbox" name="iWantToBuy" id="iWantToBuy" [(ngModel)]="checkbox" >
+    <label for="notes">{{'change_notes'|localize}}</label>
+  <input #notes type="text" name="notes" id="notes" [(ngModel)]="itemData.notes">
+    <label for="price">{{'correcting_price'|localize}}</label>
+    <input #price type="number" min="1" id="price" name="price" [(ngModel)]="itemData.price">
   </div>
   <img [attr.src]="itemData.imagePath">
   <p>{{itemData.name}}</p>
   <p>{{itemData.link}}</p>
-  <p>{{itemData.price}}</p>
+  <p>{{itemData.price|numberFormat}}BYN</p>
   <p>{{itemData.description}}</p>
-  <hr>
   <div>
-  <p *ngIf="itemData.members[0]">It will be buy:</p>
+    <div *ngIf="show" >
+      <hr>
+  <p *ngIf="itemData.members[0]">{{'will_buy'|localize}}:</p>
   <p *ngFor="let member of itemData.members">
     {{member}}
   </p>
   <p>{{itemData.notes}}</p>
   </div>
-  <button *ngIf="show" type="button" (click)="change(changeButton, wanttobuy, notes, price)">{{changeButton}}</button>
+  <button type="button" (click)="change(changeButton)">{{changeButton|localize}}</button>
+  </div>
 </div>

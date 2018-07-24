@@ -1,7 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {LocalizationService} from '../../services/localization.service';
-import {LocalizePipe} from '../../pipes/localize.pipe';
-
 
 @Component({
   selector: 'main-page',
@@ -18,14 +15,7 @@ export class MainPageComponent implements OnInit {
   url = '/assets/img/appImg/hamburger.svg';
   follow = false;
 
-  constructor(localizationService: LocalizationService) {
-    localizationService.onChange(code => {
-      if (localizationService.getCurrentLocalization().isRtl) {
-        this.style = {flexDirection: 'row-reverse'};
-      } else {
-        this.style = {flexDirection: 'row'};
-      }
-    });
+  constructor() {
   }
 
   ngOnInit() {

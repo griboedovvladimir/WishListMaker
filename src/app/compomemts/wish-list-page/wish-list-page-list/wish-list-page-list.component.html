@@ -4,11 +4,11 @@
 </div>
 </div>
 <div *ngIf="show">
-  <p>Total: {{calc.total}} of {{calc.totalAll}}</p>
+  <p>{{'total'|localize}}: {{calc.total|numberFormat}}BYN {{'of'|localize}} {{calc.totalAll|numberFormat}}BYN</p>
   <div *ngFor="let sum of calc.membersSumMap">
-  <p>{{sum[0]}} spend {{sum[1]}}RUB</p>
+  <p>{{sum[0]}} {{'spend'|localize}} {{sum[1]|numberFormat}}BYN</p>
   </div>
   <div *ngFor="let sum of calc.membersTotalMap">
-    <p>{{sum[0]}}{{sum[1]<0 ? ' need give': ' need take'}} {{sum[1]<0 ? sum[1]*-1 : sum[1]}}RUB</p>
+    <p>{{sum[0]}}{{sum[1]<0 ? ('need_give'|localize) : ('need_take'|localize)}} {{(sum[1]<0 ? sum[1]*-1 : sum[1])|numberFormat}}BYN</p>
   </div>
 </div>

@@ -12,6 +12,13 @@ export class LanguageSwitcherComponent {
 
   constructor(private localizationService: LocalizationService) {
     this.languageList = localizationService.getLanguageList();
+    this.localizationService.onChange(() => {
+      if (localizationService.getCurrentLocalization().isRtl) {
+        document.body.style.direction = 'rtl';
+      } else {
+        document.body.style.direction = 'ltr';
+      }
+    });
   }
   get currentLanguage() {
     return this.localizationService.currentLanguage;

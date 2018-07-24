@@ -23,8 +23,14 @@ export class WishListListComponent implements OnInit {
   }
 
   init() {
+    let preloader = new Image(200, 200);
+    preloader.src = 'assets/img/appImg/preloader.svg';
+    preloader.style.cssText = 'position: absolute; top: 50%; left: 50%; margin: -100px 0 0 -100px';
+    preloader.id = 'preloader';
+    document.body.appendChild(preloader);
     this.api.getWishLists().subscribe(res => {
       this.wishlists = res;
+      preloader.remove();
     });
   }
 

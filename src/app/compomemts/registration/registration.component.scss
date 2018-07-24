@@ -2,8 +2,73 @@
   input, label{
     display: block;
   }
-.err{
-  color: red;
 }
-
+h1{
+  font-family: 'Main',sans-serif;
+  font-size: 30pt;
+  text-align: center;
+  margin-bottom: 20px;
+}
+h2{
+  font-family: 'Main',sans-serif;
+  font-size: 16pt;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.wrapper{
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  font-family: 'Main',sans-serif;
+  font-weight: bold;
+  .background{
+    background-color: rgb(133, 211, 212);
+    padding: 25px 10px;
+    transform: rotate(2deg);
+    box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+  }
+  input{
+    width: 100%;
+  }
+  [type="checkbox"]{
+    width: auto;
+  }
+  .inline{
+    input, label{
+      display: inline-flex;
+    }
+    label{
+      padding:3px;
+    }
+  }
+  .err{
+    margin-top: 3px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 9pt;
+    font-stretch: ultra-condensed;
+    color: white;
+    max-width: 350px;
+    // text-shadow: 1px 1px 2px black;
+  }
+  button {
+    margin-top: 5px;
+    width: 100%;
+    font-family: 'Main',sans-serif;
+    font-weight: bold;
+    font-size: 14pt;
+    height:50px;
+    outline: none;
+    transform: rotate(-1deg);
+    background-color: #F5EF6E;
+    border:none;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+    cursor: pointer;
+  }
+}
+.form{
+  transform: rotate(-2deg);
+}
+a{
+  color: #c85051;
 }

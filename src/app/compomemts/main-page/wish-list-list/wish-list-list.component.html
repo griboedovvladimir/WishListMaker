@@ -1,16 +1,16 @@
 <div class="wrapper">
-  <div class="back" (click)="goBack()">Back to wishes</div>
+  <div class="back" (click)="goBack()">{{'back_to_wishes'|localize}}</div>
   <div #item *ngFor="let wishlist of wishlists" class="item">
     <div class="content">
       <p>{{wishlist.name}}</p>
-      <p>Members: {{wishlist.members}}</p>
+      <p>{{'members'|localize}}: {{wishlist.members}}</p>
       <p (click)="derectToWishlist(wishlist.url)">url:{{host + wishlist.url}}</p>
     </div>
     <div (click)="onRemoveWishlist(wishlist._id,item)" class="remove">
       <img src="/assets/img/appImg/cross.svg">
     </div>
   </div>
-  <button (click)="openAddWishlist()">Make wishlist</button>
+  <button (click)="openAddWishlist()">{{'make_wishlist'|localize}}</button>
 </div>
 <div *ngIf="addWishlistActive">
   <app-add-wishlist (closeAddWishlist)="closeAddWishlist()" (ReRenderWishList)="ReRenderWishList()"></app-add-wishlist>

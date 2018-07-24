@@ -15,7 +15,7 @@ export class AuthorizationComponent implements OnInit {
     password: ''
   };
   remember = false;
-  registrationErr = '';
+  authorizationErr = '';
   formSubmitted = false;
 
   constructor(private Authorization: AuthorizationService, localizationService: LocalizationService, private router: Router) {
@@ -29,6 +29,7 @@ export class AuthorizationComponent implements OnInit {
     let messages: string[] = [];
     if (state.errors) {
       for (let errorName in state.errors) {
+        console.log(errorName);
         switch (errorName) {
           case 'required':
             messages.push(`You must enter ${thingName}`);
@@ -49,6 +50,7 @@ export class AuthorizationComponent implements OnInit {
   getFormValidationMessages(form: NgForm): Array<string> {
     let messages: string[] = [];
     Object.keys(form.controls).forEach(k => {
+      console.log(form.controls[k]);
       this.getValidationMessages(form.controls[k], k).forEach(m => messages.push(m));
     });
     return messages;
@@ -69,15 +71,18 @@ export class AuthorizationComponent implements OnInit {
           }
           this.Authorization.authorizated = true;
           this.router.navigate(['/']);
+          form.reset();
+          this.formSubmitted = false;
+          let preloader = new Image(200, 200);
+          preloader.src = 'assets/img/appImg/preloader.svg';
+          preloader.style.cssText = 'position: absolute; top: 50%; left: 50%; margin: -100px 0 0 -100px';
+          preloader.id = 'preloader';
+          document.body.appendChild(preloader);
+        } else {
+          this.authorizationErr = 'user_unexist';
         }
       });
-      form.reset();
-      this.formSubmitted = false;
-      let preloader = new Image(200, 200);
-      preloader.src = 'assets/img/appImg/preloader.svg';
-      preloader.style.cssText = 'position: absolute; top: 50%; left: 50%; margin: -100px 0 0 -100px';
-      preloader.id = 'preloader';
-      document.body.appendChild(preloader);
     }
+    this.formSubmitted = true;
   }
 }

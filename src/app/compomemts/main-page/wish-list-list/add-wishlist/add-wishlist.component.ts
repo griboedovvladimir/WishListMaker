@@ -17,6 +17,7 @@ export class AddWishlistComponent implements OnInit {
     wishListName: '',
     members: ''
   };
+  userEmail: string;
 
   closeWindow() {
     this.closeAddWishlist.emit();
@@ -25,6 +26,9 @@ export class AddWishlistComponent implements OnInit {
   constructor(private api: APIService) {
     this.api.getWishes().subscribe(res => {
       this.wishes = res;
+    });
+    this.api.getUserEmail().subscribe(email => {
+      this.userEmail = email;
     });
   }
 
@@ -51,9 +55,10 @@ export class AddWishlistComponent implements OnInit {
         }
       }
       let wishList = {
+        maker: this.userEmail,
         userToken: `${localStorage.getItem('WishListMaker')
           ? localStorage.getItem('WishListMaker')
-          : sessionStorage.getItem('WishListMaker')}`,
+          : sessionStorage.getItem('WishListMakerStore')}`,
         name: form.wishListName.value,
         members: form.members.value,
         wishes: wishesArr,

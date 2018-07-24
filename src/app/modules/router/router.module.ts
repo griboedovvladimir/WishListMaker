@@ -8,7 +8,6 @@ import {AuthorizationGuard} from '../../guards/authorization.guard';
 import {LoginGuard} from '../../guards/login.guard';
 import {RegistrationGuard} from '../../guards/registration.guard';
 import {WishListPageComponent} from '../../compomemts/wish-list-page/wish-list-page.component';
-import {WishlistGuard} from '../../guards/wishlist.guard';
 import {ErrorPageComponent} from '../../compomemts/error-page/error-page.component';
 
 

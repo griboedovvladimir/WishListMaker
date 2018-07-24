@@ -1,35 +1,38 @@
-<div>
-<h1 #el>Log in</h1>
-  <form #form="ngForm" (ngSubmit)="onSubmit(form,remember,el)">
-    <div style="color:red"
-         *ngIf = "formSubmitted && form.invalid">
-      There are problems with form
-      <ul>
-        <li *ngFor="let error of getFormValidationMessages(form)">
-          {{error}}
-        </li>
-      </ul>
+<div class="wrapper">
+  <div class="background">
+    <div class="form">
+      <h1 #el>{{'Log_in'|localize}}</h1>
+      <form #form="ngForm" (ngSubmit)="onSubmit(form,remember,el)">
+        <div id="formWrapper">
+          <label for="email">{{'insert_email'|localize }} </label>
+          <input id="email" type="email" name="email" [(ngModel)]="authorize.email"
+                 required
+                 minlength="6"
+                 pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"/>
+
+          <label for="password">{{'insert_password'|localize}}</label>
+          <input id="password" type="password" name="password" [(ngModel)]="authorize.password"
+                 required
+                 minlength="6"
+                 pattern="^[A-zА-я1-9 ]+$"/>
+          <div class="inline">
+            <input class="checkbox" id="rememberme" type="checkbox" name="remember" [(ngModel)]="remember">
+            <label for="rememberme">{{'remember_me'|localize}}</label>
+          </div>
+          <button id='signin' type="submit">{{'SIGN_IN'| localize}}</button>
+        </div>
+        <div class="err" *ngIf="authorizationErr">{{authorizationErr|localize}}</div>
+        <div class="err" *ngIf="formSubmitted && form.invalid">
+          <p>{{'problems_with_form'|localize}}</p>
+          <ul>
+            <li *ngFor="let error of getFormValidationMessages(form)">
+              {{error|localize}}
+            </li>
+          </ul>
+        </div>
+        <p>{{'if_authorize'|localize}} <a routerLink="/registration">{{'register'|localize}}</a></p>
+      </form>
     </div>
-    <div id="formWrapper">
-      <label for="email">{{'Please, insert your Email'|localize }} </label>
-      <input id="email" type="email"  name="email" [(ngModel)]="authorize.email"
-             required
-             minlength="6"
-             pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"/>
-
-      <label for="password">Please, insert your password</label>
-      <input id="password" type="password" name="password" [(ngModel)]="authorize.password"
-             required
-             minlength="6"
-             pattern="^[A-zА-я1-9 ]+$"/>
-
-      <label for="rememberme">Remember me</label>
-        <input class="checkbox" id="rememberme" type="checkbox" name="remember" [(ngModel)]="remember">
-
-
-      <button id='signin' type="submit">SIGN IN</button>
-    </div>
-    <p>If you are unable to authorize, you may need to <a routerLink="/registration" >register</a></p>
-  </form>
+  </div>
 </div>
 

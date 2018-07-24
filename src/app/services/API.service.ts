@@ -42,7 +42,16 @@ export class APIService {
     return  this.http.post('http://localhost:8080/updatewishlists',
       {wishList});
   }
-
+  getFollowWishLists(email): Observable<any> {
+    return this.http.post('http://localhost:8080/getfollowwishlists',
+      {
+        'email': email
+      }).pipe(
+      map(json => {
+        return json;
+      })
+    );
+  }
   getWishLists(): Observable<any> {
     return this.http.post('http://localhost:8080/getwishlists',
       {
