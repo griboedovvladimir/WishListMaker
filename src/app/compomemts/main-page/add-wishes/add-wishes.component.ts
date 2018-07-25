@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FileUploader, FileSelectDirective} from 'ng2-file-upload/ng2-file-upload';
 import {APIService} from '../../../services/API.service';
 import {Router} from '@angular/router';
+import {LocalizationService} from '../../../services/localization.service';
 
 const URL = 'http://localhost:8080/upload';
 
@@ -13,6 +14,7 @@ const URL = 'http://localhost:8080/upload';
 })
 
 export class AddWishesComponent implements OnInit {
+  rtl: Array<string>;
   wish = {
     name: '',
     addPrice: 1,
@@ -25,7 +27,19 @@ export class AddWishesComponent implements OnInit {
     this.closeAddForm.emit();
   }
 
-  constructor(private api: APIService, private router: Router) {
+  constructor(private api: APIService, private router: Router,private localizationService: LocalizationService) {
+    if (localizationService.getCurrentLocalization().isRtl) {
+      this.rtl = ['rtl'];
+    } else {
+      this.rtl = ['remove'];
+    }
+    localizationService.onChange(code => {
+      if (localizationService.getCurrentLocalization().isRtl) {
+        this.rtl = ['rtl'];
+      } else {
+        this.rtl = ['remove'];
+      }
+    });
   }
 
   ngOnInit() {

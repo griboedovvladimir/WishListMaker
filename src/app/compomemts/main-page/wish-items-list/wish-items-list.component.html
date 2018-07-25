@@ -1,5 +1,6 @@
-
-<div *ngFor="let i of items" >
+<div class="grid_container">
+<div class="item" *ngFor="let i of items" >
   <app-wish-item [itemData]="i" (Removing)="Removing($event)" ></app-wish-item>
+</div>
 </div>
 

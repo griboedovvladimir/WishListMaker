@@ -1,22 +1,24 @@
 <div class="wrapper">
   <div class="window">
-    <div class="remove" ><img (click)="closeWindow()" src="/assets/img/appImg/cross.svg"></div>
+    <div [class]="rtl" ><img (click)="closeWindow()" src="/assets/img/appImg/cross.svg"></div>
     <form  #form #validation="ngForm" (submit)="onSubmit(form,validation)">
-      <label for="wishListName">{{'add_name_wish_list'|localize}}</label>
+      <h1>{{'сreate_wishlist'|localize}}</h1>
+      <label for="wishListName">{{'wish_name'|localize}}</label>
       <input type="text" name="wishListName" id="wishListName"
       required
              [(ngModel)]="wishlistModel.wishListName"
              minlength="4"
              pattern="^[A-zА-я0-9_-]{4,25}$"
       >
-      <p>{{'choice_wishes'|localize}}</p>
+      <p>{{'choice_wishes'|localize}}:</p>
+      <div class="checkboxes">
       <div *ngFor="let i of wishes">
-      <label>{{i.name}}
       <input type="checkbox" [attr.id]="i._id" [attr.name]="i._id">
-      </label>
+        <label [attr.for]="i._id">{{i.name}}</label>
+      </div>
       </div>
       <label for="members">{{'add_members'|localize}}</label>
-      <input id="members" type="text" name="members"
+      <input id="members" type="text" name="members" [placeholder]="'separated_comma'|localize"
              [(ngModel)]="wishlistModel.members"
       required
       minlength="6"

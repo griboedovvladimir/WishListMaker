@@ -49,7 +49,13 @@ text-align: center;
     max-width: 100%;
     height:auto;
   }
-
+  .link{
+    color:#FF6465;
+    cursor:pointer;
+    text-decoration: underline;
+    font-family: 'Main',sans-serif;
+    font-weight: bold;
+  }
 }
 
 .container{

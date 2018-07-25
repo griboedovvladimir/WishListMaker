@@ -64,6 +64,9 @@ h2{
     border:none;
     box-shadow: 0 5px 5px rgba(0,0,0,0.5);
     cursor: pointer;
+    &:hover{
+      background-color: #fff977;
+    }
   }
 }
 .form{

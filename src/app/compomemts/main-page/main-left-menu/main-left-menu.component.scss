@@ -9,6 +9,7 @@
   font-size: 30px;
   font-weight: 800;
   cursor: pointer;
+  z-index:1000;
 
   &:hover{
     background-color: #eae95e;
@@ -22,6 +23,7 @@
 }
 
 .rtf{
+  z-index:1000;
   width: 250px;
   position: absolute;
   height: 340px;

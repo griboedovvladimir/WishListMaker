@@ -5,24 +5,98 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1000;
-  .window{
-    background-color:white;
-    min-width:300px;
+  z-index: 1001;
+  .window {
+    background-color: #85D3D4;
+    min-width: 300px;
     max-width: 500px;
-    height: auto;
     margin: 20px auto;
-    .remove{
-      width:50px;
+    padding: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.remove {
+  width: 100%;
+  text-align: right;
+
+  img {
+    width: 50px;
+    position: relative;
+    margin-top: -20px;
+    margin-right: -20px;
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 0.2s ease-out 0.1s;
     }
   }
 }
-input, label, textarea{
+
+.rtl {
+  width: 100%;
+  text-align: left;
+  img {
+    width: 50px;
+    position: relative;
+    margin-top: -20px;
+    margin-left: -20px;
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 0.2s ease-out 0.1s;
+    }
+  }
+}
+
+form {
+  font-family: 'Main', sans-serif;
+  font-weight: bold;
+}
+
+input, label, textarea {
   display: block;
   resize: none;
-  width: 80%;
+  width: 100%;
 }
-input[type="number"]{
+
+h1 {
+  text-align: center;
+  font-size: 22pt;
+}
+
+.checkboxes {
+  padding: 5px 0;
+  display: flex;
+  width: 100%;
+  label {
+    display: inline;
+    margin: 0 5px;
+  }
+  input {
+    width: 10px;
+    display: inline;
+  }
+
+}
+
+input[type="number"] {
   display: inline-block;
   width: 30%;
+}
+
+button {
+  width: 100%;
+  font-family: 'Main', sans-serif;
+  font-weight: bold;
+  font-size: 14pt;
+  height: 50px;
+  outline: none;
+  transform: rotate(-1deg);
+  background-color: #F5EF6E;
+  border: none;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  margin: 20px 0;
+  &:hover {
+    background-color: #fff977;
+  }
 }

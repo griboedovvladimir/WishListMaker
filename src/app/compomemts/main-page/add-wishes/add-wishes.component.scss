@@ -5,24 +5,114 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1001;
   .window{
-    background-color:rgba(30,30,30,0.5);
+    background-color:#85D3D4;
     min-width:300px;
     max-width: 500px;
-    height: 80%;
     margin: 20px auto;
-    .remove{
-      width:50px;
+    padding: 10px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+
+  }
+}
+.remove {
+  width: 100%;
+  text-align: right;
+
+  img {
+    width: 50px;
+    position: relative;
+    margin-top: -20px;
+    margin-right: -20px;
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 0.2s ease-out 0.1s;
     }
   }
+}
+.rtl{
+  width: 100%;
+  text-align: left;
+  img {
+    width: 50px;
+    position: relative;
+    margin-top: -20px;
+    margin-left: -20px;
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 0.2s ease-out 0.1s;
+    }
+  }
+}
+form{
+  font-family: 'Main',sans-serif;
+  font-weight: bold;
 }
 input, label, textarea{
   display: block;
   resize: none;
-  width: 80%;
+  width: 100%;
 }
 input[type="number"]{
   display: inline-block;
   width: 30%;
+}
+button{
+  width: 100%;
+  font-family: 'Main',sans-serif;
+  font-weight: bold;
+  font-size: 14pt;
+  height:50px;
+  outline: none;
+  transform: rotate(-1deg);
+  background-color: #F5EF6E;
+  border:none;
+  box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+  cursor: pointer;
+  margin: 20px 0;
+  &:hover{
+    background-color: #fff977;
+  }
+}
+textarea{
+  outline: none;
+  background-color: rgba(255,255,255,0.5);
+}
+h1{
+  text-align: center;
+  font-size: 22pt;
+}
+.file-upload {
+  position: relative; /* Даем возможность делать позиционирование, внутри данного элемента */
+  overflow: hidden; /* Все что выходит за пределы - скрываем */
+  width: 40%; /* Задаем ширину кнопки выбора файла */
+  height: 20px; /* Задаем высоту кнопки выбора файла */
+  background: #6da047;
+  padding: 8px 4px;
+  text-align: center;
+  vert-align: middle;
+  box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+  margin: 5px 0;
+  font-size: 14pt;
+  transform: rotate(1deg);
+}
+.file-upload:hover {
+  background: #7aad55;
+}
+.file-upload input[type="file"]{
+  display: none; /* Обязательно скрываем настоящий Input File */
+}
+.file-upload label {
+  /* Растягиваем label на всю возможную площадь блока .file-upload */
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  padding-bottom: 10px;
+}
+.file-upload span {
+  line-height: 36px; /* Делаем вертикальное выравнивание текста, который написан на кнопке */
 }

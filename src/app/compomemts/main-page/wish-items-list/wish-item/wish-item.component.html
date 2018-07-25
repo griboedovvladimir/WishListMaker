@@ -1,8 +1,10 @@
 
-  <div class="remove" (click)="Remove(itemData._id)"><img src="/assets/img/appImg/cross.svg"></div>
+  <div [class]="rtf" (click)="Remove(itemData._id)"><img src="/assets/img/appImg/cross.svg"></div>
   <img [attr.src]="itemData.imagePath">
+  <div class="content">
   <p>{{itemData.name}}</p>
-  <p>{{itemData.link}}</p>
-  <p>{{itemData.price}}</p>
+  <p><a class="link" [attr.href]="itemData.link">{{'wish_link'|localize}}</a></p>
+  <p>{{itemData.price|numberFormat}}BYN</p>
   <p>{{itemData.description}}</p>
+  </div>
 

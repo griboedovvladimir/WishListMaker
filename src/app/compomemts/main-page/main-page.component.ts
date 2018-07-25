@@ -8,7 +8,6 @@ import {Component, OnInit} from '@angular/core';
 export class MainPageComponent implements OnInit {
   currentDate = new Date();
   style: any = {flexDirection: 'row'};
-  title = 'WishListMaker';
   menuActive = false;
   addActive = false;
   wishesActive = true;

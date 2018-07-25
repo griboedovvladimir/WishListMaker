@@ -1,9 +1,12 @@
-<div class="back" (click)="goBack()">{{'back_to_wishes'|localize}}</div>
-<div *ngIf="message">{{'do_not_follow'|localize}}</div>
-<div #item *ngFor="let wishlist of wishlists" class="item">
+<div class="wrapper">
+<div class="back" (click)="goBack()"><img src="/assets/img/appImg/back.svg">{{'back_to_wishes'|localize}}</div>
+<div class="not_follow" *ngIf="message">{{'do_not_follow'|localize}}</div>
+<div #item *ngFor="let wishlist of wishlists; let i = index" class="item"
+     [style.backgroundColor]="(i%2)?'#85D3D4':'#F5EF6E'">
   <div class="content">
-    <p>{{wishlist.name}} {{'by'|localize}} {{wishlist.maker}} </p>
+    <p>{{wishlist.name}} {{'by'|localize}} <span>{{wishlist.maker}}</span></p>
     <p>{{'members'|localize}}: {{wishlist.members}}</p>
-    <p (click)="derectToWishlist(wishlist.url)">url:{{host + wishlist.url}}</p>
+    <p class="link" (click)="derectToWishlist(wishlist.url)">{{'go_to'|localize}}</p>
   </div>
+</div>
 </div>

@@ -3,6 +3,7 @@ import {WishItemInterface} from '../../../../interfaces/wish-item.interface';
 import {APIService} from '../../../../services/API.service';
 import {WishListItemInterface} from '../../../../interfaces/wish-list-item.interface';
 import {guid} from '../../../../helpers/guid.helper';
+import {LocalizationService} from '../../../../services/localization.service';
 
 @Component({
   selector: 'app-add-wishlist',
@@ -13,27 +14,42 @@ export class AddWishlistComponent implements OnInit {
   wishes: Array<WishItemInterface>;
   @Output() closeAddWishlist = new EventEmitter();
   @Output() ReRenderWishList = new EventEmitter();
+  rtl: Array<string>;
   wishlistModel = {
     wishListName: '',
     members: ''
   };
   userEmail: string;
+ formSubmitted = true;
 
   closeWindow() {
     this.closeAddWishlist.emit();
   }
 
-  constructor(private api: APIService) {
+  constructor(private api: APIService,private localizationService: LocalizationService) {
     this.api.getWishes().subscribe(res => {
       this.wishes = res;
     });
     this.api.getUserEmail().subscribe(email => {
       this.userEmail = email;
     });
+
+    if (localizationService.getCurrentLocalization().isRtl) {
+      this.rtl = ['rtl'];
+    } else {
+      this.rtl = ['remove'];
+    }
+    localizationService.onChange(code => {
+      if (localizationService.getCurrentLocalization().isRtl) {
+        this.rtl = ['rtl'];
+      } else {
+        this.rtl = ['remove'];
+      }
+    });
   }
 
   onSubmit(form, validation) {
-    if (validation.validate) {
+    if (validation.valid) {
       let elArr = form.querySelectorAll('input');
       let wishesArr: Array<WishListItemInterface> = [];
       for (let i = 0; i < elArr.length; i++) {
@@ -67,7 +83,10 @@ export class AddWishlistComponent implements OnInit {
       this.api.addWishList(wishList).subscribe();
       this.closeWindow();
       this.ReRenderWishList.emit();
+      form.reset();
+      this.formSubmitted = false;
     }
+    this.formSubmitted = true;
   }
 
   ngOnInit() {

@@ -1,26 +1,26 @@
 <div class="item">
-  <div *ngIf="show" [ngClass]="formActive">
+  <div class="form" *ngIf="show" [ngClass]="formActive">
+    <div class="form_content">
     <label for="iWantToBuy">{{'want_to_buy'|localize}}</label>
     <input #wanttobuy type="checkbox" name="iWantToBuy" id="iWantToBuy" [(ngModel)]="checkbox" >
     <label for="notes">{{'change_notes'|localize}}</label>
   <input #notes type="text" name="notes" id="notes" [(ngModel)]="itemData.notes">
     <label for="price">{{'correcting_price'|localize}}</label>
     <input #price type="number" min="1" id="price" name="price" [(ngModel)]="itemData.price">
+    </div>
   </div>
   <img [attr.src]="itemData.imagePath">
   <p>{{itemData.name}}</p>
-  <p>{{itemData.link}}</p>
-  <p>{{itemData.price|numberFormat}}BYN</p>
   <p>{{itemData.description}}</p>
+  <p>{{itemData.price|numberFormat}}BYN<a class="link" [attr.href]="itemData.link">{{'wish_link'|localize}}</a></p>
   <div>
     <div *ngIf="show" >
-      <hr>
   <p *ngIf="itemData.members[0]">{{'will_buy'|localize}}:</p>
-  <p *ngFor="let member of itemData.members">
-    {{member}}
-  </p>
+  <span *ngFor="let member of itemData.members; let ind=index;">
+    {{member+(itemData.members.length===ind+1?'':',')}}
+  </span>
   <p>{{itemData.notes}}</p>
   </div>
-  <button type="button" (click)="change(changeButton)">{{changeButton|localize}}</button>
+  <button *ngIf="show" type="button" (click)="change(changeButton)">{{changeButton|localize}}</button>
   </div>
 </div>

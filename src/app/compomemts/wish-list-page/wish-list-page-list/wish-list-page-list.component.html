@@ -1,14 +1,20 @@
-<div>
-<div *ngFor="let itemData of items">
+<div class="grid_container">
+<div class="item" *ngFor="let itemData of items">
 <app-wish-list-page-item (reCalculate)="reCalculate()" [wishList]="wishList" [itemData]="itemData" [userEmail]="userEmail"></app-wish-list-page-item>
 </div>
 </div>
-<div *ngIf="show">
-  <p>{{'total'|localize}}: {{calc.total|numberFormat}}BYN {{'of'|localize}} {{calc.totalAll|numberFormat}}BYN</p>
+<div class = "calculate" *ngIf="show">
+  <p class="total">{{'total'|localize}}: {{calc.total|numberFormat}}BYN {{'of'|localize}} {{calc.totalAll|numberFormat}}BYN</p>
+  <div class = "count_grid">
+    <div>
   <div *ngFor="let sum of calc.membersSumMap">
-  <p>{{sum[0]}} {{'spend'|localize}} {{sum[1]|numberFormat}}BYN</p>
+    <p><span>{{sum[0]}}</span> {{'spend'|localize}} {{sum[1]|numberFormat}}BYN</p>
   </div>
+    </div>
+    <div>
   <div *ngFor="let sum of calc.membersTotalMap">
-    <p>{{sum[0]}}{{sum[1]<0 ? ('need_give'|localize) : ('need_take'|localize)}} {{(sum[1]<0 ? sum[1]*-1 : sum[1])|numberFormat}}BYN</p>
+    <p><span>{{sum[0]}}</span>{{sum[1]<0 ? ('need_give'|localize) : ('need_take'|localize)}} {{(sum[1]<0 ? sum[1]*-1 : sum[1])|numberFormat}}BYN</p>
   </div>
+    </div>
+    </div>
 </div>
