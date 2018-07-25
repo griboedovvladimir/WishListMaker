@@ -1,6 +1,6 @@
 <div *ngIf="checkedRights">
 <app-wish-list-page-list [wishList]="wishList" [userEmail]="userEmail"></app-wish-list-page-list>
 </div>
-<div *ngIf="faultRights">
+<div class="no_rights" *ngIf="faultRights">
   {{'u_do_not_right'|localize}}
 </div>
