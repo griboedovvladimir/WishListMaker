@@ -28,6 +28,11 @@ export class LocalizationService {
       title: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
       code: 'ar-EG',
       isRtl: true
+    }],
+    ['by-BY', {
+      title: 'Беларуская мова',
+      code: 'by-BY',
+      isRtl: false
     }]
   ]);
   strings = new Map<any, any>();
