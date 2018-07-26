@@ -11,6 +11,7 @@ const fileUpload = require('express-fileupload');
 const multer = require('multer');
 const url = 'mongodb://localhost:27017';
 const dbName = 'WishListMaker';
+const nodemailer = require('nodemailer');
 
 const findAll = (db, store , callback) => {
   const collection = db.collection(store);
@@ -242,6 +243,40 @@ app.post('/addwishlists',  (req, res) =>{
     collection.insertOne(wishList,(err,results)=>{
       res.end();
       client.close();
+
+      nodemailer.createTestAccount((err, account) => {
+        let transporter = nodemailer.createTransport({
+          host: 'smtp.gmail.com',
+          // port: 465,
+          // secure: false, // true for 465, false for other ports
+          service: "Gmail",
+          auth: {
+            user: "vladzimir.griboedov@gmail.com", // generated ethereal user
+            pass: "MP1257723" // generated ethereal password
+          }
+        });
+
+        let mailOptions = {
+          from: '"WishListMaker" <vladzimir.griboedov@gmail.com>', // sender address
+          to: wishList.members, // list of receivers
+          subject: 'You are invated to participate in te new wishlist', // Subject line
+          text: 'You are invated to participate in te new wishlist', // plain text body
+          html: `<h2>Hello, Bro!</h2>
+<h3>You are invated to participate in te new wishlist!</h3>
+<h4>"${wishList.name}" wishlist create by ${wishList.maker} </h4>
+<p>You can go to  <a href="http://localhost:5051/wishlists/${wishList.url}">link</a> and see this.</p>
+<h3>Good wishes!</h3>
+<hr>
+<p>© WishListMaker, 2018</p>`// html body
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return console.log(error);
+          }
+        });
+      });
+
     });
   });
 });
@@ -349,6 +384,35 @@ app.post('/updatewishlists',  (req, res) =>{
       )
     });
   });
+
+
+
+// nodemailer.createTestAccount((err, account) => {
+//   let transporter = nodemailer.createTransport({
+//     host: 'smtp.gmail.com',
+//     // port: 465,
+//     // secure: false, // true for 465, false for other ports
+//     service: "Gmail",
+//     auth: {
+//       user: "vladzimir.griboedov@gmail.com", // generated ethereal user
+//       pass: "MP1257723" // generated ethereal password
+//     }
+//   });
+//
+//   let mailOptions = {
+//     from: '"WishListMaker" <vladzimir.griboedov@gmail.com>', // sender address
+//     to: 'likecoffee@yandex.ru', // list of receivers
+//     subject: 'Hello ✔', // Subject line
+//     text: 'Hello world?', // plain text body
+//     html: '<b>Hello world?</b>' // html body
+//   };
+//
+//   transporter.sendMail(mailOptions, (error, info) => {
+//     if (error) {
+//       return console.log(error);
+//     }
+//   });
+// });
 
 
 app.listen(8080,()=>{

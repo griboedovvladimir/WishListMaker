@@ -19,6 +19,7 @@ export class AddWishesComponent implements OnInit {
     name: '',
     addPrice: 1,
     addLink: '',
+    imgLink: '',
   };
   public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'file'});
   @Output() closeAddForm = new EventEmitter();

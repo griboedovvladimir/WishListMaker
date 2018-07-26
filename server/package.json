@@ -2,7 +2,8 @@
   "name": "node-api",
   "version": "0.0.1",
   "dependencies": {
-    "cors": "^2.8.4"
+    "cors": "^2.8.4",
+    "nodemailer": "^4.6.7"
   },
   "devDependencies": {
     "express": "^4.16.3",

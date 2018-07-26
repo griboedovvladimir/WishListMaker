@@ -27,6 +27,8 @@ export class FollowWishlistsComponent implements OnInit {
         }
         preloader.remove();
       });
+    }, error => {
+      preloader.remove();
     });
   }
 

@@ -31,6 +31,8 @@ export class WishListListComponent implements OnInit {
     this.api.getWishLists().subscribe(res => {
       this.wishlists = res;
       preloader.remove();
+    }, error => {
+      preloader.remove();
     });
   }
 
