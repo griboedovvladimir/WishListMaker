@@ -10,7 +10,7 @@ import {APIService} from '../../../services/API.service';
 
 export class WishItemsListComponent implements OnInit {
   items: Array<WishItemInterface>;
-
+  searchStr = '';
   constructor(private api: APIService) {
     this.init();
     this.api.inits = this.init.bind(this);

@@ -6,13 +6,11 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
-  currentDate = new Date();
   style: any = {flexDirection: 'row'};
+  activePage = 'wish_page';
   menuActive = false;
   addActive = false;
-  wishesActive = true;
   url = '/assets/img/appImg/hamburger.svg';
-  follow = false;
 
   constructor() {
   }
@@ -36,34 +34,28 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  showFollow() {
-    this.follow = true;
-    this.wishesActive = false;
+  changePage(pageName) {
+    if (pageName === 'add_wish_page') {
+      this.addActive = true;
+      this.activePage = 'wish_page';
+    } else {
+      this.activePage = pageName;
+    }
     this.burgerClick();
   }
 
   removeFollowLists() {
-    this.wishesActive = true;
-    this.follow = false;
+    this.activePage = 'wish_page';
   }
 
-  showAddForm() {
-    this.addActive = true;
-    this.burgerClick();
-  }
 
   closeAddForm() {
     this.addActive = false;
   }
 
   removeWishLists() {
-    this.wishesActive = true;
+    this.activePage = 'wish_page';
   }
 
-  goShowWishLists() {
-    this.wishesActive = false;
-    this.burgerClick();
-    this.follow = false;
-  }
 }
 
