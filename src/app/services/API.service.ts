@@ -3,6 +3,7 @@ import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {WishItemInterface} from '../interfaces/wish-item.interface';
+import {UserInterface} from '../interfaces/user.interface';
 
 
 @Injectable()
@@ -31,6 +32,24 @@ export class APIService {
         return json;
       })
     );
+  }
+
+  getUser(): Observable<any> {
+    return this.http.post('http://localhost:8080/getuser',
+      {
+        'token': `${localStorage.getItem('WishListMaker')
+          ? localStorage.getItem('WishListMaker')
+          : sessionStorage.getItem('WishListMakerStore')}`
+      }).pipe(
+      map(json => {
+        return json;
+      })
+    );
+  }
+
+  updateUser(user): Observable<any> {
+    return  this.http.post('http://localhost:8080/updateuser',
+      {user});
   }
 
   addWishList(wishList): Observable<any> {

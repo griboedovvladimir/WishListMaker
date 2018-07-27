@@ -30,7 +30,7 @@
 
       <label>{{'lin_to_img'|localize}}<input type="text" name="addlinkImg" id="addlinkImg"
                                              [(ngModel)]="wish.imgLink"
-                                             pattern="^[a-z0-9\:=?%&/-%#]+(.jpg|.png)$"
+                                             pattern="^https?://\S+(?:\.jpg|\.jpeg|\.png)$"
     /></label>
 
       <button type="submit">{{'add_wish'|localize}}</button>

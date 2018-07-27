@@ -48,6 +48,9 @@ export class MainPageComponent implements OnInit {
     this.activePage = 'wish_page';
   }
 
+  removeSettings() {
+    this.activePage = 'wish_page';
+  }
 
   closeAddForm() {
     this.addActive = false;

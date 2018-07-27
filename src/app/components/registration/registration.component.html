@@ -9,7 +9,7 @@
           <input type="text" id="nameReg" name="name" [(ngModel)]="user.name"
                  required
                  minlength="2"
-                 pattern="^[A-zА-я0-9_-]{5,16}$"/>
+                 pattern="^[A-zА-я]{5,16}$"/>
 
           <label for="emailReg">{{'reg_email'|localize}}</label>
           <input type="email" id="emailReg" name="email" [(ngModel)]="user.email"

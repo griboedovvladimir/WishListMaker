@@ -12,7 +12,9 @@ export class RegistrationComponent {
 user = {
   name: '',
   email: '',
-  password: ''
+  password: '',
+  sex: 'male',
+  avatar: '/assets/img/appImg/man.svg'
 };
 registrationErr = '';
   constructor(private router: Router, private Authorize: AuthorizationService) { }
@@ -51,6 +53,11 @@ formSubmitted = false;
         if (res) {
           this.registrationErr = 'This email is already exist';
         } else if (res === false && form.valid) {
+          let lastChar = this.user.name[this.user.name.length];
+          if ( lastChar === 'я' || lastChar === 'а' || lastChar === 'a') {
+            this.user.avatar = '/assets/img/appImg/woman.svg';
+            this.user.sex = 'female';
+          }
           this.Authorize.registerUser(this.user).then(token => {
             localStorage.setItem('WishListMaker', token);
             this.router.navigate(['/']);

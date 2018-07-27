@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <div class="back_wrap">
+    <div class="back" (click)="goBack()"><img src="/assets/img/appImg/back.svg">{{'back_to_wishes'|localize}}</div>
+  </div>
+  <div class="photo">
+    <div class="avatar">
+      <img *ngIf="user.avatar" [attr.src]="user.avatar">
+    </div>
+  </div>
+  <div class="ident">
+    <h2>{{user.name}}</h2>
+    <h3>{{user.sex}}</h3>
+  </div>
+  <div class="window">
+    <div class="form_wrapper">
+      <form #form #validation="ngForm" (submit)="onSubmit(form,validation)">
+
+        <div class="form_group">
+          <p class="center">Your name now {{user.name}}</p>
+          <label for="changeName"> Change to</label>
+          <input type="text" name="changeName" id="changeName" [(ngModel)]="userModel.name"
+                 minlength="2"
+                 pattern="^[A-zА-я]{5,16}$"/>
+          <label><p class="center">Если мы ошиблись с полом, вы можете поменять значение тут</p>
+            <p>
+              <span>Male<input type="radio" name="sex" value="male" [checked]="radioMale"></span>
+              <span class="famale">Female<input type="radio" name="sex" value="female" [checked]="radioFemale"></span>
+            </p>
+          </label>
+        </div>
+
+        <div>
+          <p class="center">Your email now {{user.email}}</p>
+          <label for="changeEmail"> Change to</label>
+          <input type="email" name="changeEmail" id="changeEmail" [(ngModel)]="userModel.email"
+                 minlength="6"
+                 pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"/>
+          <div class="passwordBlock">
+            <span *ngIf="!showPass">Your password now <span class="pass">{{user.password|passwordHidden}}</span></span>
+            <span *ngIf="showPass">Your password now<span class="pass">{{user.password}}</span></span>
+            <img (click)="showPassword()" [attr.src]="showButton">
+          </div>
+          <label for="changePass"> Change to</label>
+          <input type="password" name="changePass" id="changePass" [(ngModel)]="userModel.password" minlength="6"
+                 pattern="^[A-zА-я1-9 ]+$"/>
+        </div>
+
+        <div class="file-upload">
+          <label for="file">Загрузить аватар</label>
+          <input type="file" name="file" id="file" ng2FileSelect [uploader]="uploader"/>
+        </div>
+        <div class="back_wrap">
+          <div class="remove_account">Remove my account</div>
+        </div>
+
+        <button type="submit">SAVE CHANGES</button>
+
+      </form>
+    </div>
+  </div>
+</div>

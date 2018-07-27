@@ -3,9 +3,9 @@ const path = require('path');
 const router = express.Router();
 const fs = require('fs');
 const cors = require('cors');
-const MongoClient = require ('mongodb').MongoClient;
+const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
-const assert = require ('assert');
+const assert = require('assert');
 const http = require('http');
 const fileUpload = require('express-fileupload');
 const multer = require('multer');
@@ -13,22 +13,23 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'WishListMaker';
 const nodemailer = require('nodemailer');
 
-const findAll = (db, store , callback) => {
+const findAll = (db, store, callback) => {
   const collection = db.collection(store);
-  collection.find({}). toArray((err, docs)=>{
-    assert.equal(err,null);
+  collection.find({}).toArray((err, docs) => {
+    assert.equal(err, null);
     callback(docs);
   })
 };
+
 function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
   }
+
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
-
 
 
 const app = express();
@@ -43,44 +44,44 @@ app.use(express.static('img'));
 
 app.get('/authorization/:id', (req, res) => {
   let email = String(req.params.id.slice(1));
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-let check = false;
-    findAll(db, 'users' ,(data)=>{
-      for (let i of data){
-        if (i.email === email){
+    let check = false;
+    findAll(db, 'users', (data) => {
+      for (let i of data) {
+        if (i.email === email) {
           check = true;
         }
       }
-      let result=JSON.stringify(check);
+      let result = JSON.stringify(check);
       return res.end(result);
     });
     client.close();
   });
 });
 
-app.post('/registration',(req,res)=> {
-    let user = req.body;
-    user.token = guid();
-    MongoClient.connect(url, (err, client)=>{
-      assert.equal(null,err);
-      const db = client.db(dbName);
-const collection = db.collection('users');
-collection.insertOne(user,(err,results)=>{
-  res.end(JSON.stringify(user.token))
-});
-      });
+app.post('/registration', (req, res) => {
+  let user = req.body;
+  user.token = guid();
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
+    const db = client.db(dbName);
+    const collection = db.collection('users');
+    collection.insertOne(user, (err, results) => {
+      res.end(JSON.stringify(user.token))
+    });
   });
+});
 
 
-app.post('/localization',(req,res)=>{
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+app.post('/localization', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
 
-    findAll(db,'localization',(data)=>{
-      let result=JSON.stringify(data);
+    findAll(db, 'localization', (data) => {
+      let result = JSON.stringify(data);
       return res.end(result);
 
     });
@@ -89,37 +90,54 @@ app.post('/localization',(req,res)=>{
 });
 
 
-
-app.post('/authorization',(req,res)=>{
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+app.post('/authorization', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-    findAll(db,'users',(data)=>{
-      let token='';
-      for (let i of data){
-        if (i.email === req.body.email && i.password === req.body.password){
+    findAll(db, 'users', (data) => {
+      let token = '';
+      for (let i of data) {
+        if (i.email === req.body.email && i.password === req.body.password) {
           token = i.token;
         }
       }
-      let result=JSON.stringify(token);
+      let result = JSON.stringify(token);
       return res.end(result);
     });
     client.close();
   })
 });
 
-app.post('/getuseremail',(req,res)=>{
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+app.post('/getuseremail', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-    findAll(db,'users',(data)=>{
-      let email='';
-      for (let i of data){
-        if (i.token === req.body.token){
+    findAll(db, 'users', (data) => {
+      let email = '';
+      for (let i of data) {
+        if (i.token === req.body.token) {
           email = i.email;
         }
       }
-      let result=JSON.stringify(email);
+      let result = JSON.stringify(email);
+      return res.end(result);
+    });
+    client.close();
+  })
+});
+
+app.post('/getuser', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
+    const db = client.db(dbName);
+    findAll(db, 'users', (data) => {
+      let user = '';
+      for (let i of data) {
+        if (i.token === req.body.token) {
+          user = i;
+        }
+      }
+      let result = JSON.stringify(user);
       return res.end(result);
     });
     client.close();
@@ -127,26 +145,26 @@ app.post('/getuseremail',(req,res)=>{
 });
 
 
-app.post('/getwishes',(req,res)=>{
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+app.post('/getwishes', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-    MongoClient.connect(url, (err, client)=>{
-      assert.equal(null,err);
+    MongoClient.connect(url, (err, client) => {
+      assert.equal(null, err);
       const db = client.db(dbName);
 
-    findAll(db, 'wishes',(data)=>{
-      let arr=[];
-      for (let i of data){
-        if (i.userToken === req.body.token){
-          arr.push(i);
+      findAll(db, 'wishes', (data) => {
+        let arr = [];
+        for (let i of data) {
+          if (i.userToken === req.body.token) {
+            arr.push(i);
+          }
         }
-      }
-      let result=JSON.stringify(arr);
-      return res.end(result);
+        let result = JSON.stringify(arr);
+        return res.end(result);
+      });
+      client.close();
     });
-    client.close();
-  });
     client.close();
   });
 });
@@ -187,7 +205,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.post('/upload',upload.single('file'),  (req, res) => {
+app.post('/upload', upload.single('file'), (req, res) => {
   if (!req.file) {
     console.log("No file received");
     return res.send({
@@ -203,29 +221,29 @@ app.post('/upload',upload.single('file'),  (req, res) => {
   }
 });
 
-app.post('/addwishes',  (req, res) =>{
-    let wish = req.body.wish;
-    delete wish._id;
-    MongoClient.connect(url, (err, client)=>{
-      assert.equal(null,err);
-      const db = client.db(dbName);
-      const collection = db.collection('wishes');
-      collection.insertOne(wish,(err,results)=>{
-        res.end();
-        client.close();
-      });
+app.post('/addwishes', (req, res) => {
+  let wish = req.body.wish;
+  delete wish._id;
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
+    const db = client.db(dbName);
+    const collection = db.collection('wishes');
+    collection.insertOne(wish, (err, results) => {
+      res.end();
+      client.close();
     });
   });
+});
 
-app.post('/deletewishes',  (req, res) =>{
+app.post('/deletewishes', (req, res) => {
   let id = req.body.id;
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-    findAll(db, 'wishes' ,(data)=>{
-      for (let i of data){
-        if (i._id.toString() === id){
-          db.collection("wishes").deleteOne({_id: i._id}, (err,result) =>{
+    findAll(db, 'wishes', (data) => {
+      for (let i of data) {
+        if (i._id.toString() === id) {
+          db.collection("wishes").deleteOne({_id: i._id}, (err, result) => {
             client.close();
           });
         }
@@ -234,13 +252,13 @@ app.post('/deletewishes',  (req, res) =>{
   });
 });
 
-app.post('/addwishlists',  (req, res) =>{
+app.post('/addwishlists', (req, res) => {
   let wishList = req.body.wishList;
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
     const collection = db.collection('wishlists');
-    collection.insertOne(wishList,(err,results)=>{
+    collection.insertOne(wishList, (err, results) => {
       res.end();
       client.close();
 
@@ -281,22 +299,22 @@ app.post('/addwishlists',  (req, res) =>{
   });
 });
 
-app.post('/getwishlists',(req,res)=>{
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+app.post('/getwishlists', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-    MongoClient.connect(url, (err, client)=>{
-      assert.equal(null,err);
+    MongoClient.connect(url, (err, client) => {
+      assert.equal(null, err);
       const db = client.db(dbName);
 
-      findAll(db, 'wishlists' ,(data)=>{
-        let arr=[];
-        for (let i of data){
-          if (i.userToken === req.body.token){
+      findAll(db, 'wishlists', (data) => {
+        let arr = [];
+        for (let i of data) {
+          if (i.userToken === req.body.token) {
             arr.push(i);
           }
         }
-        let result=JSON.stringify(arr);
+        let result = JSON.stringify(arr);
         return res.end(result);
       });
       client.close();
@@ -305,22 +323,22 @@ app.post('/getwishlists',(req,res)=>{
   });
 });
 
-app.post('/getwishlist',(req,res)=>{
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+app.post('/getwishlist', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-    MongoClient.connect(url, (err, client)=>{
-      assert.equal(null,err);
+    MongoClient.connect(url, (err, client) => {
+      assert.equal(null, err);
       const db = client.db(dbName);
 
-      findAll(db, 'wishlists' ,(data)=>{
-        let wishlist=[];
-        for (let i of data){
-          if (i.url=== req.body.id){
+      findAll(db, 'wishlists', (data) => {
+        let wishlist = [];
+        for (let i of data) {
+          if (i.url === req.body.id) {
             wishlist = i;
           }
         }
-        let result=JSON.stringify(wishlist);
+        let result = JSON.stringify(wishlist);
         return res.end(result);
       });
       client.close();
@@ -329,22 +347,22 @@ app.post('/getwishlist',(req,res)=>{
   });
 });
 
-app.post('/getfollowwishlists',(req,res)=>{
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+app.post('/getfollowwishlists', (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-    MongoClient.connect(url, (err, client)=>{
-      assert.equal(null,err);
+    MongoClient.connect(url, (err, client) => {
+      assert.equal(null, err);
       const db = client.db(dbName);
 
-      findAll(db, 'wishlists' ,(data)=>{
-        let wishlist=[];
-        for (let i of data){
-          if (i.members.includes(req.body.email)){
+      findAll(db, 'wishlists', (data) => {
+        let wishlist = [];
+        for (let i of data) {
+          if (i.members.includes(req.body.email)) {
             wishlist.push(i);
           }
         }
-        let result=JSON.stringify(wishlist);
+        let result = JSON.stringify(wishlist);
         return res.end(result);
       });
       client.close();
@@ -353,15 +371,15 @@ app.post('/getfollowwishlists',(req,res)=>{
   });
 });
 
-app.post('/deletewishlist',  (req, res) =>{
+app.post('/deletewishlist', (req, res) => {
   let id = req.body.id;
-  MongoClient.connect(url, (err, client)=>{
-    assert.equal(null,err);
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
     const db = client.db(dbName);
-    findAll(db, 'wishlists' ,(data)=>{
-      for (let i of data){
-        if (i._id.toString() === id){
-          db.collection("wishlists").deleteOne({_id: i._id}, (err,result) =>{
+    findAll(db, 'wishlists', (data) => {
+      for (let i of data) {
+        if (i._id.toString() === id) {
+          db.collection("wishlists").deleteOne({_id: i._id}, (err, result) => {
             client.close();
           });
         }
@@ -370,51 +388,44 @@ app.post('/deletewishlist',  (req, res) =>{
   });
 });
 
-app.post('/updatewishlists',  (req, res) =>{
+app.post('/updatewishlists', (req, res) => {
   let wishList = req.body.wishList;
-  MongoClient.connect(url, (err, client)=>{
+  MongoClient.connect(url, (err, client) => {
     const db = client.db(dbName);
     const collection = db.collection('wishlists');
-      collection.updateOne(
-        {url : wishList.url},
-        {$set: {wishes: wishList.wishes}},
-        ()=>{
-          client.close();
-        }
-      )
-    });
+    collection.updateOne(
+      {url: wishList.url},
+      {$set: {wishes: wishList.wishes}},
+      () => {
+        client.close();
+      }
+    )
   });
+});
+
+app.post('/updateuser', (req, res) => {
+  let user = req.body.user;
+  MongoClient.connect(url, (err, client) => {
+    const db = client.db(dbName);
+    const collection = db.collection('users');
+    collection.updateOne(
+      {token: user.token},
+      {$set: {
+          name: user.name,
+          email: user.email,
+          password: user.password,
+          sex: user.sex,
+          avatar: user.avatar,
+      }},
+      () => {
+        client.close();
+      }
+    )
+  });
+});
 
 
 
-// nodemailer.createTestAccount((err, account) => {
-//   let transporter = nodemailer.createTransport({
-//     host: 'smtp.gmail.com',
-//     // port: 465,
-//     // secure: false, // true for 465, false for other ports
-//     service: "Gmail",
-//     auth: {
-//       user: "vladzimir.griboedov@gmail.com", // generated ethereal user
-//       pass: "MP1257723" // generated ethereal password
-//     }
-//   });
-//
-//   let mailOptions = {
-//     from: '"WishListMaker" <vladzimir.griboedov@gmail.com>', // sender address
-//     to: 'likecoffee@yandex.ru', // list of receivers
-//     subject: 'Hello ✔', // Subject line
-//     text: 'Hello world?', // plain text body
-//     html: '<b>Hello world?</b>' // html body
-//   };
-//
-//   transporter.sendMail(mailOptions, (error, info) => {
-//     if (error) {
-//       return console.log(error);
-//     }
-//   });
-// });
-
-
-app.listen(8080,()=>{
+app.listen(8080, () => {
   console.log('We are live on ' + 8080);
 });

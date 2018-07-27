@@ -15,6 +15,9 @@
     <div class="list" *ngSwitchCase="'wish_page'">
       <app-wish-items-list></app-wish-items-list>
     </div>
+    <div class="list" *ngSwitchCase="'settings_page'">
+      <app-settings (removeSettings)="removeSettings($event)"></app-settings>
+    </div>
     <div class="list" *ngSwitchCase="'wishlists_page'">
       <app-wish-list-list (removeWishLists)="removeWishLists($event)"></app-wish-list-list>
     </div>

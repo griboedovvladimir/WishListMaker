@@ -28,7 +28,7 @@ export class AddWishesComponent implements OnInit {
     this.closeAddForm.emit();
   }
 
-  constructor(private api: APIService, private router: Router,private localizationService: LocalizationService) {
+  constructor(private api: APIService, private router: Router, private localizationService: LocalizationService) {
     if (localizationService.getCurrentLocalization().isRtl) {
       this.rtl = ['rtl'];
     } else {
