@@ -11,6 +11,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginGuard} from './guards/login.guard';
 import {RegistrationGuard} from './guards/registration.guard';
 import {FileSelectDirective} from 'ng2-file-upload';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import {FileSelectDirective} from 'ng2-file-upload';
     BrowserModule,
     FormsModule,
     AppRouterModule,
-    HttpClientModule
+    HttpClientModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     Object.values(services),

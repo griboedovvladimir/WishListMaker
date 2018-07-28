@@ -36,6 +36,7 @@ export class MainLeftMenuComponent implements OnInit {
       this.router.navigate(['/login']);
     } else {
       sessionStorage.removeItem('WishListMaker');
+      sessionStorage.removeItem('WishListMakerStore');
       this.router.navigate(['/login']);
     }
   }

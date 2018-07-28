@@ -2,6 +2,7 @@ import {Component, OnInit, Output,EventEmitter } from '@angular/core';
 import {UserInterface} from '../../interfaces/user.interface';
 import {APIService} from '../../services/API.service';
 import {FileUploader, FileSelectDirective} from 'ng2-file-upload/ng2-file-upload';
+import {Router} from '@angular/router';
 
 const URL = 'http://localhost:8080/upload';
 
@@ -29,15 +30,16 @@ export class SettingsComponent implements OnInit {
   radioFemale = false;
   radioMale = false;
   showPass = false;
-  remove = false;
+  showWarning = false;
+  goRemove: boolean;
   showButton = 'assets/img/appImg/hide.svg';
   public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'file'});
 
-  constructor(private api: APIService) {
+  constructor(private api: APIService, private router: Router) {
     this.init();
   }
 
-  init(){
+  init() {
     let preloader = new Image(200, 200);
     preloader.src = 'assets/img/appImg/preloader.svg';
     preloader.style.cssText = 'position: absolute; top: 50%; left: 50%; margin: -100px 0 0 -100px';
@@ -68,8 +70,20 @@ export class SettingsComponent implements OnInit {
     this.removeSettings.emit();
   }
 
-  removeAccount(){
-
+  removeAccount() {
+this.showWarning = !this.showWarning;
+if (this.goRemove) {
+  if (localStorage.getItem('WishListMaker')) {
+    localStorage.removeItem('WishListMaker');
+    this.router.navigate(['/login']);
+  } else {
+    sessionStorage.removeItem('WishListMaker');
+    sessionStorage.removeItem('WishListMakerStore');
+    this.router.navigate(['/login']);
+  }
+  // this.api.removeUser().subscribe();
+}
+this.goRemove = true;
   }
 
   onSubmit(form, validation) {

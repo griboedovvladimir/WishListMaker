@@ -53,7 +53,7 @@ formSubmitted = false;
         if (res) {
           this.registrationErr = 'This email is already exist';
         } else if (res === false && form.valid) {
-          let lastChar = this.user.name[this.user.name.length];
+          let lastChar = this.user.name[this.user.name.length - 1];
           if ( lastChar === 'я' || lastChar === 'а' || lastChar === 'a') {
             this.user.avatar = '/assets/img/appImg/woman.svg';
             this.user.sex = 'female';

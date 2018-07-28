@@ -51,7 +51,14 @@ export class APIService {
     return  this.http.post('http://localhost:8080/updateuser',
       {user});
   }
-
+  removeUser(): Observable<any> {
+    return this.http.post('http://localhost:8080/deleteuser',
+      {
+        'token': `${localStorage.getItem('WishListMaker')
+          ? localStorage.getItem('WishListMaker')
+          : sessionStorage.getItem('WishListMakerStore')}`
+      });
+  }
   addWishList(wishList): Observable<any> {
     return  this.http.post('http://localhost:8080/addwishlists',
       {wishList});

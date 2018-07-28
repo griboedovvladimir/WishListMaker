@@ -252,6 +252,24 @@ app.post('/deletewishes', (req, res) => {
   });
 });
 
+app.post('/deleteuser', (req, res) => {
+  let token = req.body.token;
+  MongoClient.connect(url, (err, client) => {
+    assert.equal(null, err);
+    const db = client.db(dbName);
+    findAll(db, 'users', (data) => {
+      for (let i of data) {
+        if (i.token.toString() === token) {
+          db.collection("users").deleteOne({token: i.token}, (err, result) => {
+            client.close();
+          });
+        }
+      }
+    });
+  });
+});
+
+
 app.post('/addwishlists', (req, res) => {
   let wishList = req.body.wishList;
   MongoClient.connect(url, (err, client) => {

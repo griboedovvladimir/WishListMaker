@@ -9,7 +9,7 @@
   }
   .window{
     background-color:#85D3D4;
-    min-width:300px;
+    min-width:220px;
     max-width: 500px;
     margin: 20px auto;
     padding: 10px;
@@ -155,4 +155,7 @@
   &:hover {
     background: #d55354;
   }
+}
+.warning{
+  color:#c85051;
 }
