@@ -7,7 +7,7 @@ export class SearchPipe implements PipeTransform {
   transform(wishes, value) {
     if (wishes) {
       return wishes.filter(wish => {
-        return wish.name.includes(value);
+        return wish.name.toLowerCase().includes(value.toLowerCase());
       });
     }
   }

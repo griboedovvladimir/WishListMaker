@@ -187,8 +187,9 @@ let storage = multer.diskStorage({
     cb(null, DIR);
   },
   filename: (req, file, cb) => {
-    fileName = file.fieldname + '-' + Date.now() + '.' + path.extname(file.originalname);
-    cb(null, file.fieldname + '-' + Date.now() + '.' + path.extname(file.originalname));
+    let uniq = guid();
+    fileName = file.fieldname + '-' + uniq + '.' + path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniq + '.' + path.extname(file.originalname));
   }
 });
 let upload = multer({storage: storage});

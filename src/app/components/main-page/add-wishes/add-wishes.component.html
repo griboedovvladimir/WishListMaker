@@ -16,7 +16,7 @@
       <input type="text" name="addLink" id="addLink"
              [(ngModel)]="wish.addLink"
              required
-             pattern="^((https?|ftp)\:\/\/)?([a-z0-9]{1})((\.[a-z0-9-])|([a-z0-9-]))*\.([a-z]{2,6})(\/?)$"
+             pattern="^((https?|ftp)\:\/\/)(\S+)*$"
       />
       {{'wish_price'|localize}} <input type="number" name="addPrice" id="addPrice" min="1"
                    [(ngModel)]="wish.addPrice"
